@@ -6,7 +6,6 @@ class Notepad {
     }
 
     prepareDom(){
-        const teml = document.querySelector('.notepad');
-
+        const tmpl = document.querySelector('.notepad');
     }
 }
