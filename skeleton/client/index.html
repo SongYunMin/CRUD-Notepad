@@ -2,12 +2,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="/style.css">
-		<script src="/notepad.js"></script>
+		<link rel="stylesheet" href="./style.css">
 	</head>
 	<body>
+	<header class="mainHeader">
+		<h1>Notepad</h1>
+	</header>
+	<section class="notepad">
+		<header class="top">
+			<article></article>
+		</header>
+	</section>
+	<template class="template-post">
+
+	</template>
 		<script>
-			let notepad = new Notepad();
+			let notepad = new Notepad(document.querySelector('.notepad'));
 		</script>
 	</body>
 </html>
