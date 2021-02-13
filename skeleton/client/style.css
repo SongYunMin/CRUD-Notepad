@@ -2,7 +2,7 @@
 
 }
 
-.content{
+.menubar{
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -13,6 +13,6 @@
     background: antiquewhite;
 }
 
-.content .bt{
+.menubar .bt{
     
 }

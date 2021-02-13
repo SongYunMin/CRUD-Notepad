@@ -1,11 +1,12 @@
 class Notepad {
-    #dom
+    #notepadDom
+    #
     constructor(dom) {
         this.#dom = dom;
         this.prepareDom();
     }
 
     prepareDom(){
-        const tmpl = document.querySelector('.notepad');
+
     }
 }
