@@ -1,18 +1,3 @@
 * {
 
 }
-
-.menubar{
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 70px;
-    padding: 0;
-    margin: 0;
-    background: antiquewhite;
-}
-
-.menubar .bt{
-    
-}
