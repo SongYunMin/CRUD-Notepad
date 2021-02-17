@@ -2,9 +2,8 @@
 
 }
 
-
-.tab{
-    width: 100%;
+.tabBT-li{
+    width: 50px;
     height: 70px;
-    background: antiquewhite;
+    list-style: none;
 }
