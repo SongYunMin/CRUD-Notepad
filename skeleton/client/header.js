@@ -3,9 +3,11 @@ class Header{
     #headerTabList
     #headerTabli
     #headerTabButton
+    #AddTablButton
     constructor() {
         this.prepareDom();
         this.setTabButton();
+        this.#AddTablButton = document.querySelector('.addTabBT');
     }
 
     prepareDom(){
@@ -23,8 +25,12 @@ class Header{
         this.#headerDom.appendChild(this.#headerTabli);
     }
 
-    setAttribute(){
+    addTab(){
 
+    }
+
+    setAttribute(){
+        this.#AddTablButton.addEventListener()
     }
 
     getHeaderDom(){
