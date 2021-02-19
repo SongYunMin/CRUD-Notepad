@@ -1,12 +1,18 @@
 class EventListener{
     #eventDom
     constructor() {
-        this.addTab()
-
     }
 
     addTab(dom){
-        console.log("Test");
-
+        this.#eventDom = dom;
+        console.log(this.#eventDom);
+        this.#eventDom.addEventListener('click', () =>{
+            this.#eventDom.dispatchEvent(new CustomEvent("add-tab", {
+                bubbles: true,
+                detail: {
+                    dom: this.#eventDom
+                }
+            }));
+        });
     }
 }

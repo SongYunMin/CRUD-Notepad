@@ -8,15 +8,15 @@ class Header{
     constructor() {
         this.prepareDom();
         this.setTabButton();
-        this.addTab();
-        this.#addTabButton = document.querySelector('.addTabBT');
         this.eventHandler = new EventListener();
+        this.addTab();
     }
 
     prepareDom(){
         const t = document.querySelector('.template-header');
         const tmpl = document.importNode(t.content, true);
         this.#headerDom = tmpl.querySelector('.main-header');
+        this.#addTabButton = this.#headerDom.querySelector('.addTabBT');
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
@@ -30,6 +30,9 @@ class Header{
 
     addTab(){
         this.eventHandler.addTab(this.#addTabButton);
+        this.#addTabButton.addEventListener('add-tab', (e) =>{
+            this.setTabButton();
+        });
     }
 
     getHeaderDom(){
