@@ -5,9 +5,10 @@ class Notepad {
     #sectionDom
     eventHandler
     #headerInstance
+    TAB_COUNT
 
     constructor(headerDom, notepadDom) {
-        this.prepareDom();
+        this.TAB_COUNT = 1;
         this.#headerInstance = new Header();
         this.#headerContentDom = this.#headerInstance.getHeaderDom();
         this.#headerDom = headerDom;
@@ -18,13 +19,12 @@ class Notepad {
         this.addNotepadTab();
     }
 
-    prepareDom(){
+    makeNotepad(){
         const t = document.querySelector('.template-notepad');
         const tmpl = document.importNode(t.content, true);
         this.#tabDom = tmpl.querySelector('.notepadTab');
-    }
 
-    makeNotepad(){
+        this.#tabDom.classList.add(`Tab${this.TAB_COUNT++}`);
         this.#sectionDom.appendChild(this.#tabDom);
     }
 
@@ -34,9 +34,10 @@ class Notepad {
 
     addNotepadTab(){
         const addTab = this.#headerInstance.getAddTabButtonDom();
-        this.eventHandler.addNotepadTab(addTab);
+        this.eventHandler.handleEvent(addTab, {add_tab:true});
         addTab.addEventListener('add-tab', ()=>{
-            console.log("Notepad");
+            this.makeNotepad();
+            console.log("추가 완료");
         })
 
     }
