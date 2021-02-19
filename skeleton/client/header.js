@@ -44,10 +44,14 @@ class Header {
             console.log("addTabButton Event");
            this.addTabButton();
         });
-        // this.eventHandler.handleTabEvent(this.#addTabButton, {add_tab:true});
-        // this.#addTabButton.addEventListener('add-tab', (e) => {
-        //     this.addTabButton();
-        // });
+    }
+
+    // 탭 변경 클릭 이벤트
+    listenTabEvent(){
+        this.eventHandler.handleTabEvent(this.#headerTabList);
+        this.#headerTabList.addEventListener('click-tab', (e)=>{
+            console.log(e.detail.dom);
+        });
     }
 
     getHeaderDom() {
@@ -58,12 +62,5 @@ class Header {
         return this.#addTabButton;
     }
 
-    // TODO : 어떤 탭 클릭했는지 target 확인 안되면 stash
-    // 탭 변경 클릭 이벤트
-    listenTabEvent(){
-        this.eventHandler.handleEvent(this.#headerTabList, {handle_tab:true});
-        this.#headerTabList.addEventListener('click-tab', (e)=>{
-            console.log("탭 변경");
-        });
-    }
+
 }

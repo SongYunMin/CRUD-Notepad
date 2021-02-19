@@ -35,21 +35,16 @@ class Notepad {
 
     addNotepadTab(){
         const addTab = this.#headerInstance.getAddTabButtonDom();
-        addTab.addEventListener('click', (e) =>{
-           this.makeNotepad();
-           console.log("탭 추가 완료");
-        });
-        // this.eventHandler.handleEvent(addTab, {add_tab:true});
-        // addTab.addEventListener('add-tab', ()=>{
-        //     this.makeNotepad();
-        //     console.log("탭 추가 완료");
-        // })
+        this.eventHandler.addHeaderTab(addTab);
+        addTab.addEventListener('add-tab', ()=>{
+            this.makeNotepad();
+        })
     }
 
     changeTab(){
         const changeTab = this.#headerInstance.getAddTabButtonDom();
         changeTab.addEventListener('click-tab', ()=>{
-
+           console.log("Change Tab!");
         });
     }
 

@@ -22,10 +22,11 @@ class EventListener {
     handleTabEvent(dom) {
         this.#eventDom = dom;
         this.#eventDom.addEventListener('click', (e) =>{
+            // console.log("Handler : "+e.target);
            this.#eventDom.dispatchEvent(new CustomEvent("click-tab",{
                bubbles: true,
                detail: {
-                   dom:this.#eventDom
+                   dom: e.target
                }
            })) ;
         });
