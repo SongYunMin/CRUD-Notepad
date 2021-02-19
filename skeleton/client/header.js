@@ -26,6 +26,7 @@ class Header {
 
     // 새 탭을 추가하는 메소드
     addTabButton() {
+        console.log("탭 추가");
         const t = document.querySelector('.template-tabBT');
         const tmpl = document.importNode(t.content, true);
         this.#headerTabLi = tmpl.querySelector('.tabBT-li');
@@ -39,10 +40,14 @@ class Header {
 
     // 탭 추가 쿨릭 이벤트
     addHeaderTab() {
-        this.eventHandler.handleTabEvent(this.#addTabButton, {add_tab:true});
-        this.#addTabButton.addEventListener('add-tab', (e) => {
-            this.addTabButton();
+        this.#addTabButton.addEventListener('click', ()=>{
+            console.log("addTabButton Event");
+           this.addTabButton();
         });
+        // this.eventHandler.handleTabEvent(this.#addTabButton, {add_tab:true});
+        // this.#addTabButton.addEventListener('add-tab', (e) => {
+        //     this.addTabButton();
+        // });
     }
 
     getHeaderDom() {
