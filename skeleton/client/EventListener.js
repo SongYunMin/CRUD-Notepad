@@ -3,7 +3,8 @@ class EventListener{
     constructor() {
     }
 
-    addTab(dom){
+    // 탭 추가 이벤트 리스너
+    addHeaderTab(dom){
         this.#eventDom = dom;
         console.log(this.#eventDom);
         this.#eventDom.addEventListener('click', () =>{
@@ -15,4 +16,11 @@ class EventListener{
             }));
         });
     }
+
+    addNotepadTab(dom){
+        this.#eventDom = dom;
+        this.#eventDom.addEventListener('')
+    }
+
+
 }

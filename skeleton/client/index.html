@@ -8,30 +8,46 @@
     <script src="./EventListener.js"></script>
 </head>
 <body>
-<section class="desktop">
-    <article class="tab1"></article>
+<header class="notepad-header">
+
+</header>
+
+<section class="notepad-section">
+
 </section>
 
+<template class="template-notepad">
+    <article class="notepadTab"></article>
+</template>
+
 <template class="template-header">
-    <header class="main-header">
+    <section class="main-header">
         <button class="addTabBT" type=button>탭 추가</button>
         <ul class="tabList">
 
         </ul>
-    </header>
+    </section>
 </template>
 
 <template class="template-tabBT">
     <li class="tabBT-li">
-        <button class="tabBT-bt">TEST</button>
+        <button class="tabBT-bt"></button>
     </li>
 </template>
 
+<template class="template-notepad">
+    <article class="notepadTab"></article>
+</template>
+
+<template class="template-createBT">
+    <button class="newNoteBT">새 메모</button>
+</template>
 
 
 <script>
     let notepad = new Notepad(
-        document.querySelector('.tab1')
+        document.querySelector('.notepad-header'),
+        document.querySelector('.notepad-section')
     );
 </script>
 </body>
