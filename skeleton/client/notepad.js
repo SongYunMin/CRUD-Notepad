@@ -4,13 +4,14 @@ class Notepad {
 
     constructor(dom) {
         this.#notepadDom = dom;
-        this.#header = new Header();
+        const header = new Header();
+        this.#header = header.getHeaderDom();
         console.log(this.#header);
-        this.makeHeader(this.#header);
+        this.makeHeader(header);
     }
 
     makeHeader(header){
         this.#notepadDom.appendChild(header.getHeaderDom());
+        header.setTabButton();
     }
-
 }

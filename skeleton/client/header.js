@@ -1,13 +1,16 @@
 class Header{
     #headerDom
     #headerTabList
-    #headerTabli
+    #headerTabLi
     #headerTabButton
-    #AddTablButton
+    #addTabButton
+    eventHandler
     constructor() {
         this.prepareDom();
         this.setTabButton();
-        this.#AddTablButton = document.querySelector('.addTabBT');
+        this.addTab();
+        this.#addTabButton = document.querySelector('.addTabBT');
+        this.eventHandler = new EventListener();
     }
 
     prepareDom(){
@@ -20,17 +23,13 @@ class Header{
     setTabButton(){
         const t = document.querySelector('.template-tabBT');
         const tmpl = document.importNode(t.content, true);
-        this.#headerTabli = tmpl.querySelector('.tabBT-li');
-        this.#headerTabButton = this.#headerTabli.querySelector('.tabBT-bt');
-        this.#headerDom.appendChild(this.#headerTabli);
+        this.#headerTabLi = tmpl.querySelector('.tabBT-li');
+        this.#headerTabButton = this.#headerTabLi.querySelector('.tabBT-bt');
+        this.#headerTabList.appendChild(this.#headerTabLi);
     }
 
     addTab(){
-
-    }
-
-    setAttribute(){
-        this.#AddTablButton.addEventListener()
+        this.eventHandler.addTab(this.#addTabButton);
     }
 
     getHeaderDom(){
