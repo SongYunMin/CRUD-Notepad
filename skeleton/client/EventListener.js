@@ -31,6 +31,7 @@ class EventListener {
     handleTabEvent(dom) {
         this.#eventDom = dom;
         this.#eventDom.addEventListener('click', (e) =>{
+            console.log(e.target);
            this.#eventDom.dispatchEvent(new CustomEvent("click-tab",{
                bubbles: true,
                detail: {

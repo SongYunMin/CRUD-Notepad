@@ -32,6 +32,7 @@ class Header {
         this.#headerTabButton = this.#headerTabLi.querySelector('.tabBT-bt');
 
         this.#headerTabLi.classList.add(`Tab${this.TAB_COUNT}`);
+        this.#headerTabButton.classList.add(`Tab${this.TAB_COUNT}`);
         this.#headerTabButton.innerHTML = `탭 ${this.TAB_COUNT++}`
         this.#headerTabList.appendChild(this.#headerTabLi);
     }
@@ -55,16 +56,9 @@ class Header {
     // TODO : 어떤 탭 클릭했는지 target 확인 안되면 stash
     // 탭 변경 클릭 이벤트
     listenTabEvent(){
-        this.#headerTabButton.addEventListener('click', (e)=>{
-            console.log(e.target);
-        })
-        this.eventHandler.handleEvent(this.#headerTabButton, {handle_tab:true});
-        console.log(this.#headerTabButton);
-        this.#headerTabButton.addEventListener('click-tab', (e)=>{
+        this.eventHandler.handleEvent(this.#headerTabList, {handle_tab:true});
+        this.#headerTabList.addEventListener('click-tab', (e)=>{
             console.log("탭 변경");
         });
     }
-
-
-
 }
