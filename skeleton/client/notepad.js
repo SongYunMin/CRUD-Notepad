@@ -3,6 +3,7 @@ class Notepad {
     #tabDom
     #headerContentDom
     #sectionDom
+    #inputMemo
     eventHandler
     #headerInstance
     TAB_COUNT
@@ -24,9 +25,11 @@ class Notepad {
         const t = document.querySelector('.template-notepad');
         const tmpl = document.importNode(t.content, true);
         this.#tabDom = tmpl.querySelector('.notepadTab');
+        // this.#inputMemo = this.#tabDom.querySelector('.notepadMemo');
 
         this.#tabDom.classList.add(`Tab${this.TAB_COUNT++}`);
         this.#sectionDom.appendChild(this.#tabDom);
+        // this.#tabDom.appendChild(this.#inputMemo);
     }
 
     makeHeader(header){

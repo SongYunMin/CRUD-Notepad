@@ -4,8 +4,12 @@
 
 .notepadTab{
     display: flex;
-    width: 300px;
+    width: 600px;
     height: 300px;
     /*visibility: collapse;*/
-    background: midnightblue;
+    background: antiquewhite;
+}
+
+.notepadMemo{
+    height: 200px;
 }
