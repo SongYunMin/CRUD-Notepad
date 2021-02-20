@@ -6,7 +6,7 @@
     display: flex;
     width: 600px;
     height: 300px;
-    /*visibility: collapse;*/
+    visibility: collapse;
     background: antiquewhite;
 }
 

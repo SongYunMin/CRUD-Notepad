@@ -6,9 +6,11 @@ class Header {
     #addTabButton
     eventHandler
     TAB_COUNT
+    TAB_LIMIT
 
     constructor() {
         this.TAB_COUNT = 1;
+        this.TAB_LIMIT = 5;
         this.prepareDom();
         this.addTabButton();
         this.eventHandler = new EventListener();
@@ -34,6 +36,7 @@ class Header {
 
         this.#headerTabLi.classList.add(`Tab${this.TAB_COUNT}`);
         this.#headerTabButton.classList.add(`Tab${this.TAB_COUNT}`);
+        this.#headerTabButton.setAttribute('name',`${this.TAB_COUNT}`);
         this.#headerTabButton.innerHTML = `탭 ${this.TAB_COUNT++}`
         this.#headerTabList.appendChild(this.#headerTabLi);
     }
@@ -42,14 +45,17 @@ class Header {
     addTab() {
         this.#addTabButton.addEventListener('click', ()=>{
             console.log("addTabButton Event");
-           this.addTabButton();
+            if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
+                alert("탭은 다섯개 이상 추가할 수 없습니다.");
+            }else {
+                this.addTabButton();
+            }
         });
     }
 
     // 탭 변경 클릭 이벤트
     listenTabEvent(){
         this.#headerTabList.addEventListener('click', (e)=>{
-            console.log("qwekljqwle");
         });
     }
 
