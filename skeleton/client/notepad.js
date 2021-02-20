@@ -36,14 +36,15 @@ class Notepad {
     addNotepadTab(){
         const addTab = this.#headerInstance.getAddTabButtonDom();
         this.eventHandler.addHeaderTab(addTab);
-        addTab.addEventListener('add-tab', ()=>{
+        addTab.addEventListener('click', ()=>{
             this.makeNotepad();
         })
     }
 
     changeTab(){
-        const changeTab = this.#headerInstance.getAddTabButtonDom();
-        changeTab.addEventListener('click-tab', ()=>{
+        const changeTab = this.#headerInstance.getHeaderTabList();
+        this.eventHandler.handleTabEvent(changeTab);
+        changeTab.addEventListener('click', ()=>{
            console.log("Change Tab!");
         });
     }

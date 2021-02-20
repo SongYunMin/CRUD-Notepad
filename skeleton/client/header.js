@@ -12,7 +12,7 @@ class Header {
         this.prepareDom();
         this.addTabButton();
         this.eventHandler = new EventListener();
-        this.addHeaderTab();
+        this.addTab();
         this.listenTabEvent();
     }
 
@@ -38,8 +38,8 @@ class Header {
         this.#headerTabList.appendChild(this.#headerTabLi);
     }
 
-    // 탭 추가 쿨릭 이벤트
-    addHeaderTab() {
+    // 탭 추가 클릭 이벤트
+    addTab() {
         this.#addTabButton.addEventListener('click', ()=>{
             console.log("addTabButton Event");
            this.addTabButton();
@@ -48,9 +48,8 @@ class Header {
 
     // 탭 변경 클릭 이벤트
     listenTabEvent(){
-        this.eventHandler.handleTabEvent(this.#headerTabList);
-        this.#headerTabList.addEventListener('click-tab', (e)=>{
-            console.log(e.detail.dom);
+        this.#headerTabList.addEventListener('click', (e)=>{
+            console.log("qwekljqwle");
         });
     }
 
@@ -60,6 +59,10 @@ class Header {
 
     getAddTabButtonDom() {
         return this.#addTabButton;
+    }
+
+    getHeaderTabList(){
+        return this.#headerTabList;
     }
 
 

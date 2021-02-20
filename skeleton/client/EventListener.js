@@ -1,6 +1,5 @@
 class EventListener {
     #eventDom
-    // TODO : Option Variable Holding
     constructor() {
 
     }
@@ -21,8 +20,8 @@ class EventListener {
 
     handleTabEvent(dom) {
         this.#eventDom = dom;
+        console.log(this.#eventDom);
         this.#eventDom.addEventListener('click', (e) =>{
-            // console.log("Handler : "+e.target);
            this.#eventDom.dispatchEvent(new CustomEvent("click-tab",{
                bubbles: true,
                detail: {
