@@ -53,22 +53,17 @@ class Notepad {
         const changeTab = this.#headerInstance.getHeaderTabList();
         this.eventHandler.handleTabEvent(changeTab);
         changeTab.addEventListener('click', (e)=>{
-            // TODO : e.target 은 버튼임, notepad 를 visible 해야 함
-            const tabBuf = e.target.getAttribute('name');
+            const click = e.target.getAttribute('name');
             const sectionNodes = this.#sectionDom.childNodes;
-            // console.log(sectionNodes[1].getAttribute('name'));
-
-            // TODO : 0 번째 node가 element DOM이 아니여서 오류
+            // TODO : 0 번째 node 가 element DOM 이 아니여서 오류
             for(let i = 1; i<sectionNodes.length;i++){
-                console.log(sectionNodes[i].getAttribute('name'));
+                if(click === sectionNodes[i].getAttribute('name')){
+                    sectionNodes[i].style.visibility = 'visible';
+                }else{
+                    sectionNodes[i].style.visibility = 'hidden';
+                }
             }
 
-            // for(const node of sectionNodes){
-            //     const test = node.getAttribute('name');
-            //     if(tabBuf === test){
-            //         node.style.visibility = 'visible';
-            //     }
-            // }
         });
     }
 

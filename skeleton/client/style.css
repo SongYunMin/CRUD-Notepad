@@ -4,6 +4,8 @@
 
 .notepadTab{
     display: flex;
+    position: absolute;
+    top:200px;
     width: 600px;
     height: 300px;
     visibility: collapse;
