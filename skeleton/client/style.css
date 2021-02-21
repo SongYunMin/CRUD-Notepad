@@ -8,10 +8,30 @@
     background: beige;
 }
 
+.main-header {
+
+}
+
+.addTabBT{
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+}
+
 .tabList{
     display: flex;
-    justify-content: flex-start;
+    position: relative;
+    top: 120px;
+    justify-content: space-around;
     list-style: none;
+}
+
+.tabBT-bt{
+    width: 250px;
+    height: 60px;
 }
 
 .notepadTab{

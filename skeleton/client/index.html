@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
+    <script src="./Button.js"></script>
     <script src="./notepad.js"></script>
     <script src="./header.js"></script>
     <script src="./EventListener.js"></script>
@@ -14,7 +15,9 @@
 </header>
 
 <section class="notepad-section">
+    <nav class="notepad-nav">
 
+    </nav>
 </section>
 
 <template class="template-header">
@@ -40,10 +43,11 @@
     </article>
 </template>
 
-<template class="template-createBT">
+<template class="template-button">
     <button class="newNoteBT">새 메모</button>
+    <button class="loadBT">불러오기</button>
+    <button class="modifyBT">수정</button>
 </template>
-
 
 <script>
     let notepad = new Notepad(

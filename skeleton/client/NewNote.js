@@ -1,5 +1,0 @@
-class NewNote{
-
-    constructor() {
-    }
-}
