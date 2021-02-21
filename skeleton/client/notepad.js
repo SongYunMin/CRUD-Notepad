@@ -56,8 +56,13 @@ class Notepad {
             // TODO : e.target 은 버튼임, notepad 를 visible 해야 함
             const tabBuf = e.target.getAttribute('name');
             const sectionNodes = this.#sectionDom.childNodes;
-            // TODO : ChildNodes 를 사용하면 해결할 수 있음
-            console.log(sectionNodes);
+            // console.log(sectionNodes[1].getAttribute('name'));
+
+            // TODO : 0 번째 node가 element DOM이 아니여서 오류
+            for(let i = 1; i<sectionNodes.length;i++){
+                console.log(sectionNodes[i].getAttribute('name'));
+            }
+
             // for(const node of sectionNodes){
             //     const test = node.getAttribute('name');
             //     if(tabBuf === test){
