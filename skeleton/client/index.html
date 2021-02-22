@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
     <script src="./Button.js"></script>
-    <script src="./notepad.js"></script>
-    <script src="./header.js"></script>
+    <script src="./Notepad.js"></script>
+    <script src="./Header.js"></script>
     <script src="./EventListener.js"></script>
 </head>
 <body>
@@ -35,11 +35,13 @@
     </li>
 </template>
 
+<!-- TODO : Title, Memo CSS 수정 -->
 <template class="template-notepad">
     <article class="notepadTab">
         <label>
-            <input type="text" class = notepadTitle/>
-            <textarea class="notepadMemo"></textarea>
+            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요."/>
+            <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
+
         </label>
     </article>
 </template>

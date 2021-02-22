@@ -29,7 +29,6 @@ class Notepad {
         this.changeTab();
     }
 
-
     makeNotepad(){
         const t = document.querySelector('.template-notepad');
         const tmpl = document.importNode(t.content, true);
@@ -67,7 +66,6 @@ class Notepad {
         changeTab.addEventListener('click', (e)=>{
             const click = e.target.getAttribute('name');
             const sectionNodes = this.#notepadDom.childNodes;
-            console.log(sectionNodes);
             // TODO : 0 번째 node 가 element DOM 이 아니여서 오류
             // TODO : 'nav' 시멘틱이 추가되어 3부터 Loop
             for(let i = 3; i<sectionNodes.length;i++){
@@ -77,7 +75,6 @@ class Notepad {
                     sectionNodes[i].style.visibility = 'hidden';
                 }
             }
-
         });
     }
 

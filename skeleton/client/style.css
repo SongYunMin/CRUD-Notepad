@@ -36,6 +36,7 @@
 
 .notepadTab{
     display: flex;
+    flex-direction: column;
     position: absolute;
     top:200px;
     width: 100%;
@@ -44,6 +45,21 @@
     background: antiquewhite;
 }
 
-.notepadMemo{
-    height: 200px;
+.notepadTitle{
+    position: absolute;
+    top: 165px;
+    left: 37%;
+    width: 500px;
+    height: 70px;
+    font-size: 20px;
 }
+
+.notepadMemo{
+    position: absolute;
+    resize: none;
+    top: 250px;
+    left: 37%;
+    width: 500px;
+    height: 300px;
+}
+
