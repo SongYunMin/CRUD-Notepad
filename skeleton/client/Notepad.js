@@ -8,10 +8,8 @@ class Notepad {
 
     #notepadDom
 
-    eventHandler
     TAB_COUNT
     TAB_LIMIT
-
     constructor(headerDom, notepadDom) {
         this.TAB_COUNT = 1;
         this.TAB_LIMIT = 5;
@@ -27,6 +25,8 @@ class Notepad {
         this.makeNavigation();
         this.addNotepadTab();
         this.changeTab();
+        this.saveButtonListener();
+        this.loadButtonListener();
     }
 
     makeHeader(){
@@ -57,4 +57,19 @@ class Notepad {
             this.#tabInstance.changeTab(this.#notepadDom, e.target);
         });
     }
+
+    saveButtonListener(){
+        const saveEvent = this.#navButtonInstance.getSaveDom();
+        saveEvent.addEventListener('click', ()=>{
+            console.log("test (save)");
+        });
+    }
+
+    loadButtonListener(){
+        const saveEvent = this.#navButtonInstance.getLoadDom();
+        saveEvent.addEventListener('click', ()=>{
+            console.log("Load Button!");
+        });
+    }
+
 }

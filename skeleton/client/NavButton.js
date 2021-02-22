@@ -1,7 +1,9 @@
 class NavButton{
+    #notepadInstance
+
     #navDom
     #loadDom
-    #savaDom
+    #saveDom
 
     TAB_COUNT
     TAB_LIMIT
@@ -15,6 +17,18 @@ class NavButton{
         const tmpl = document.importNode(t.content, true);
         this.#navDom = tmpl.querySelector('.notepad-nav');
         this.#navDom.setAttribute('name', `${this.TAB_COUNT++}`);
+        this.#saveDom = this.#navDom.querySelector('.saveBT');
+        this.#loadDom = this.#navDom.querySelector('.loadBT');
         notepadDom.appendChild(this.#navDom);
     }
+
+    getSaveDom(){
+        return this.#saveDom;
+    }
+
+    getLoadDom(){
+        return this.#loadDom;
+    }
+
+
 }
