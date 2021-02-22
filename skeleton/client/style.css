@@ -33,7 +33,7 @@
     display: flex;
     position: absolute;
     top: 250px;
-    left:650px;
+    left:770px;
     justify-content: center;
     z-index: 100;
     visibility: visible;
@@ -42,7 +42,7 @@
 .navBT{
     margin: 10px 10px 10px 10px;
     width: 100px;
-    height: 40px;
+    height: 60px;
     font-size: 20px;
 }
 
