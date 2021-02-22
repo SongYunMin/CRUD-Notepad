@@ -3,21 +3,28 @@ class NavButton{
     #newNoteDom
     #loadDom
     #modifyDom
+
+    TAB_COUNT
     constructor() {
-        this.makeNavigation();
+        this.TAB_COUNT = 1;
+        // this.makeNavigation();
     }
 
+    // TODO : 새 메모 기능이 "저장" 기능을 대체?
     makeNavigation(){
         const t = document.querySelector('.template-button');
         const tmpl = document.importNode(t.content, true);
         this.#navDom = tmpl.querySelector('.notepad-nav');
-
         this.#newNoteDom = this.#navDom.querySelector('.newNoteBT');
         this.#loadDom = this.#navDom.querySelector('.loadBT');
         this.#modifyDom = this.#navDom.querySelector('.modifyBT');
 
+        this.#navDom.setAttribute('name', `${this.TAB_COUNT++}`)
+
         return this.#navDom;
     }
+
+
 
     getNavDom(){
         return this.#navDom;

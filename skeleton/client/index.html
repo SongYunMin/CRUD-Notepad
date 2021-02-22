@@ -27,6 +27,15 @@
     </section>
 </template>
 
+<template class="template-button">
+    <nav class="notepad-nav">
+        <button class="navBT newNoteBT">새 메모</button>
+        <button class="navBT loadBT">불러오기</button>
+        <button class="navBT saveBT">저장</button>
+        <button class="navBT modifyBT">수정</button>
+    </nav>
+</template>
+
 <template class="template-tabBT">
     <li class="tabBT-li">
         <button class="tabBT-bt"></button>
@@ -37,18 +46,10 @@
 <template class="template-notepad">
     <article class="notepadTab">
         <label>
-            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요."/>
+            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요"/>
             <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
         </label>
     </article>
-</template>
-
-<template class="template-button">
-    <nav class="notepad-nav">
-        <button class="newNoteBT">새 메모</button>
-        <button class="loadBT">불러오기</button>
-        <button class="modifyBT">수정</button>
-    </nav>
 </template>
 
 <script>

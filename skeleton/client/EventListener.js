@@ -3,7 +3,6 @@ class EventListener {
     constructor() {
 
     }
-
     // 탭 추가 이벤트 리스너
     addHeaderTab(dom) {
         this.#eventDom = dom;
@@ -17,8 +16,6 @@ class EventListener {
             }));
         });
     }
-
-
 
     handleTabEvent(dom) {
         this.#eventDom = dom;
