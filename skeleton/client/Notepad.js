@@ -1,12 +1,12 @@
 class Notepad {
     #navButtonInstance
     #headerInstance
+    #tabInstance
 
     #headerDom
     #headerContentDom
 
     #notepadDom
-    #notepadTabDom
     #notepadNavDom
 
     eventHandler
@@ -18,6 +18,7 @@ class Notepad {
         this.TAB_LIMIT = 5;
         this.#headerInstance = new Header();
         this.#navButtonInstance = new NavButton();
+        this.#tabInstance = new Tab();
 
         this.#headerContentDom = this.#headerInstance.getHeaderDom();
         this.#headerDom = headerDom;
@@ -31,18 +32,15 @@ class Notepad {
     }
 
     makeHeader(header){
+        // this.#tabInstance.makeTab(this.#headerDom)
         this.#headerDom.appendChild(header.getHeaderDom());
     }
 
     makeNotepad(){
-        const t = document.querySelector('.template-notepad');
-        const tmpl = document.importNode(t.content, true);
-        this.#notepadTabDom = tmpl.querySelector('.notepadTab');
-        this.#notepadTabDom.classList.add(`Tab${this.TAB_COUNT}`);
-        this.#notepadTabDom.setAttribute('name', `${this.TAB_COUNT++}`);
-        this.#notepadDom.appendChild(this.#notepadTabDom);
+        this.#tabInstance.makeTab(this.#headerDom);
+        // this.#notepadDom.appendChild(this.#notepadTabDom);
     }
-임
+
     makeNavigation(){
         this.#notepadNavDom = this.#navButtonInstance.getNavDom();
         this.#notepadDom.appendChild(this.#navButtonInstance.makeNavigation());
@@ -55,7 +53,7 @@ class Notepad {
             if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
                 console.log("Tab Maximum");
             }else {
-                this.makeNotepad();
+                this.#tabInstance.makeTab(this.#headerDom);
                 this.makeNavigation();
             }
         })

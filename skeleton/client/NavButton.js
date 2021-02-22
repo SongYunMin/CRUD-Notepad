@@ -7,10 +7,8 @@ class NavButton{
     TAB_COUNT
     constructor() {
         this.TAB_COUNT = 1;
-        // this.makeNavigation();
     }
 
-    // TODO : 새 메모 기능이 "저장" 기능을 대체?
     makeNavigation(){
         const t = document.querySelector('.template-button');
         const tmpl = document.importNode(t.content, true);
@@ -23,8 +21,6 @@ class NavButton{
 
         return this.#navDom;
     }
-
-
 
     getNavDom(){
         return this.#navDom;
