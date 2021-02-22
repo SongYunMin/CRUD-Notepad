@@ -24,28 +24,34 @@ class Notepad {
         this.#notepadDom = notepadDom;
         this.eventHandler = new EventListener();
         this.makeHeader(this.#headerInstance);
+        // TODO : 생성자에서 Navigation ID 부여 에러 있음
         this.makeNotepad();
+        this.makeNavigation();
         this.addNotepadTab();
         this.changeTab();
+    }
+
+    makeHeader(header){
+        this.#headerDom.appendChild(header.getHeaderDom());
     }
 
     makeNotepad(){
         const t = document.querySelector('.template-notepad');
         const tmpl = document.importNode(t.content, true);
         this.#notepadTabDom = tmpl.querySelector('.notepadTab');
-        this.#notepadNavDom = tmpl.querySelector('.notepad-nav');
+        this.#notepadNavDom = this.#navButtonInstance.getNavDom();
+        console.log(this.#notepadNavDom);
 
         this.#notepadTabDom.classList.add(`Tab${this.TAB_COUNT}`);
-        this.#notepadTabDom.setAttribute('name', `${this.TAB_COUNT++}`);
+
+        this.#notepadTabDom.setAttribute('name', `${this.TAB_COUNT}`);
         this.#notepadDom.appendChild(this.#notepadTabDom);
-
-        // TODO : NULL 문제 있음
-        // this.#notepadNavDom.appendChild(this.#navButtonInstance.getNewNoteDom());
-
     }
 
-    makeHeader(header){
-        this.#headerDom.appendChild(header.getHeaderDom());
+    makeNavigation(){
+        this.#notepadDom.classList.add(`Nav${this.TAB_COUNT}`);
+        this.#notepadNavDom.setAttribute('name', `${this.TAB_COUNT++}`);
+        this.#notepadDom.appendChild(this.#navButtonInstance.makeNavigation());
     }
 
     addNotepadTab(){
@@ -56,6 +62,7 @@ class Notepad {
                 console.log("Tab Maximum");
             }else {
                 this.makeNotepad();
+                this.makeNavigation();
             }
         })
     }
@@ -66,12 +73,10 @@ class Notepad {
         changeTab.addEventListener('click', (e)=>{
             const click = e.target.getAttribute('name');
             const sectionNodes = this.#notepadDom.childNodes;
-            // TODO : 0 번째 node 가 element DOM 이 아니여서 오류
-            // TODO : 'nav' 시멘틱이 추가되어 3부터 Loop
             for(let i = 3; i<sectionNodes.length;i++){
                 if(click === sectionNodes[i].getAttribute('name')){
                     sectionNodes[i].style.visibility = 'visible';
-                }else{
+                } else {
                     sectionNodes[i].style.visibility = 'hidden';
                 }
             }

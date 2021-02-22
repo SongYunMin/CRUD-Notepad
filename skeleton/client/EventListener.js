@@ -18,6 +18,8 @@ class EventListener {
         });
     }
 
+
+
     handleTabEvent(dom) {
         this.#eventDom = dom;
         console.log(this.#eventDom);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <script src="./Button.js"></script>
+    <script src="NavButton.js"></script>
     <script src="./Notepad.js"></script>
     <script src="./Header.js"></script>
     <script src="./EventListener.js"></script>
@@ -15,9 +15,7 @@
 </header>
 
 <section class="notepad-section">
-    <nav class="notepad-nav">
 
-    </nav>
 </section>
 
 <template class="template-header">
@@ -41,15 +39,16 @@
         <label>
             <input type="text" class="notepadTitle" placeholder="제목을 입력하세요."/>
             <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
-
         </label>
     </article>
 </template>
 
 <template class="template-button">
-    <button class="newNoteBT">새 메모</button>
-    <button class="loadBT">불러오기</button>
-    <button class="modifyBT">수정</button>
+    <nav class="notepad-nav">
+        <button class="newNoteBT">새 메모</button>
+        <button class="loadBT">불러오기</button>
+        <button class="modifyBT">수정</button>
+    </nav>
 </template>
 
 <script>

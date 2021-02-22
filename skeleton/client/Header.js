@@ -15,7 +15,6 @@ class Header {
         this.addTabButton();
         this.eventHandler = new EventListener();
         this.addTab();
-        this.listenTabEvent();
     }
 
     prepareDom() {
@@ -50,12 +49,6 @@ class Header {
             }else {
                 this.addTabButton();
             }
-        });
-    }
-
-    // 탭 변경 클릭 이벤트
-    listenTabEvent(){
-        this.#headerTabList.addEventListener('click', (e)=>{
         });
     }
 
