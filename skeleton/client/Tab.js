@@ -1,16 +1,11 @@
 class Tab{
-    #headerInstance
-
-    #notepadDom
     #notepadTabDom
 
     TAB_COUNT
     TAB_LIMIT
     constructor() {
-        // this.#headerInstance
         this.TAB_COUNT = 1;
         this.TAB_LIMIT = 5;
-        // this.changeTab();
     }
 
     addTab(notepadDom){
@@ -21,7 +16,6 @@ class Tab{
         this.#notepadTabDom.setAttribute('name', `${this.TAB_COUNT++}`);
         notepadDom.appendChild(this.#notepadTabDom);
     }
-
 
     changeTab(notepadDom, target){
         const click = target.getAttribute('name');
