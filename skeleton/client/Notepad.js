@@ -1,6 +1,7 @@
 class Notepad {
     #navButtonInstance
     #headerInstance
+    #tabInstance
 
     #headerDom
     #headerContentDom
@@ -18,6 +19,7 @@ class Notepad {
         this.TAB_LIMIT = 5;
         this.#headerInstance = new Header();
         this.#navButtonInstance = new NavButton();
+        this.#tabInstance = new Tab();
 
         this.#headerContentDom = this.#headerInstance.getHeaderDom();
         this.#headerDom = headerDom;
@@ -30,22 +32,16 @@ class Notepad {
         this.changeTab();
     }
 
-    makeHeader(header){
-        this.#headerDom.appendChild(header.getHeaderDom());
+    makeHeader(){
+        this.#headerInstance.addHeader(this.#headerDom);
     }
 
     makeNotepad(){
-        const t = document.querySelector('.template-notepad');
-        const tmpl = document.importNode(t.content, true);
-        this.#notepadTabDom = tmpl.querySelector('.notepadTab');
-        this.#notepadTabDom.classList.add(`Tab${this.TAB_COUNT}`);
-        this.#notepadTabDom.setAttribute('name', `${this.TAB_COUNT++}`);
-        this.#notepadDom.appendChild(this.#notepadTabDom);
+        this.#tabInstance.addTab(this.#notepadDom);
     }
-임
+
     makeNavigation(){
-        this.#notepadNavDom = this.#navButtonInstance.getNavDom();
-        this.#notepadDom.appendChild(this.#navButtonInstance.makeNavigation());
+        this.#navButtonInstance.addNav(this.#notepadDom);
     }
 
     addNotepadTab(){
@@ -55,8 +51,8 @@ class Notepad {
             if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
                 console.log("Tab Maximum");
             }else {
-                this.makeNotepad();
-                this.makeNavigation();
+                this.#tabInstance.addTab(this.#notepadDom);
+                this.#navButtonInstance.addNav(this.#notepadDom);
             }
         })
     }
@@ -65,24 +61,30 @@ class Notepad {
         const changeTab = this.#headerInstance.getHeaderTabList();
         this.eventHandler.handleTabEvent(changeTab);
         changeTab.addEventListener('click', (e)=>{
-            const click = e.target.getAttribute('name');
-            const sectionNodes = this.#notepadDom.childNodes;
-            const navNodes = this.#notepadDom.childNodes;
+            console.log("테스트 : ",e.target);
+            this.#tabInstance.changeTab(this.#notepadDom, e.target);
 
-            for(let i = 1; i<sectionNodes.length; i+=2){
-                if(click === sectionNodes[i].getAttribute('name')){
-                    sectionNodes[i].style.visibility = 'visible';
-                } else {
-                    sectionNodes[i].style.visibility = 'hidden';
-                }
-            }
-            for(let i = 2; i<navNodes.length;i+=2){
-                if(click === navNodes[i].getAttribute('name')){
-                    navNodes[i].style.visibility = 'visible';
-                }else{
-                    navNodes[i].style.visibility = 'hidden';
-                }
-            }
+
+            // const click = e.target.getAttribute('name');
+            // const sectionNodes = this.#notepadDom.childNodes;   // 홀수
+            // const navNodes = this.#notepadDom.childNodes;       // 짝수
+            // console.log(navNodes);
+            //
+            //
+            // for(let i = 1; i<sectionNodes.length; i+=2){
+            //     if(click === sectionNodes[i].getAttribute('name')){
+            //         sectionNodes[i].style.visibility = 'visible';
+            //     } else {
+            //         sectionNodes[i].style.visibility = 'hidden';
+            //     }
+            // }
+            // for(let i = 2; i<navNodes.length;i+=2){
+            //     if(click === navNodes[i].getAttribute('name')){
+            //         navNodes[i].style.visibility = 'visible';
+            //     }else{
+            //         navNodes[i].style.visibility = 'hidden';
+            //     }
+            // }
 
         });
     }

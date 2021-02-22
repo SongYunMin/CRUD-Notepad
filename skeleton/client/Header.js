@@ -13,8 +13,7 @@ class Header {
         this.TAB_LIMIT = 5;
         this.prepareDom();
         this.addTabButton();
-        this.eventHandler = new EventListener();
-        this.addTab();
+        this.addTabListener();
     }
 
     prepareDom() {
@@ -41,7 +40,7 @@ class Header {
     }
 
     // 탭 추가 클릭 이벤트
-    addTab() {
+    addTabListener() {
         this.#addTabButton.addEventListener('click', ()=>{
             console.log("addTabButton Event");
             if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
@@ -50,6 +49,10 @@ class Header {
                 this.addTabButton();
             }
         });
+    }
+
+    addHeader(header){
+        header.appendChild(this.#headerDom);
     }
 
     getHeaderDom() {

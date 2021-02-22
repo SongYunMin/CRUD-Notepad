@@ -15,14 +15,17 @@ class NavButton{
         const t = document.querySelector('.template-button');
         const tmpl = document.importNode(t.content, true);
         this.#navDom = tmpl.querySelector('.notepad-nav');
-        this.#newNoteDom = this.#navDom.querySelector('.newNoteBT');
-        this.#loadDom = this.#navDom.querySelector('.loadBT');
-        this.#modifyDom = this.#navDom.querySelector('.modifyBT');
-
         this.#navDom.setAttribute('name', `${this.TAB_COUNT++}`)
-
-        return this.#navDom;
     }
+
+    addNav(notepadDom){
+        const t = document.querySelector('.template-button');
+        const tmpl = document.importNode(t.content, true);
+        this.#navDom = tmpl.querySelector('.notepad-nav');
+        this.#navDom.setAttribute('name', `${this.TAB_COUNT++}`);
+        notepadDom.appendChild(this.#navDom);
+    }
+
 
 
 
