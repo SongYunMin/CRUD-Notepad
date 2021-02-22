@@ -4,7 +4,6 @@ class Header {
     #headerTabLi
     #headerTabButton
     #addTabButton
-    eventHandler
     TAB_COUNT
     TAB_LIMIT
 

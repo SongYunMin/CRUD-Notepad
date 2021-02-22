@@ -22,7 +22,6 @@ class Notepad {
         this.#headerContentDom = this.#headerInstance.getHeaderDom();
         this.#headerDom = headerDom;
         this.#notepadDom = notepadDom;
-        this.eventHandler = new EventListener();
         this.makeHeader(this.#headerInstance);
         this.makeNotepad();
         this.makeNavigation();
