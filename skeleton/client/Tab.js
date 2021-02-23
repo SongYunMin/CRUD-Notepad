@@ -29,6 +29,7 @@ class Tab{
                 sectionNodes[i].style.visibility = 'hidden';
             }
         }
+
         for(let i = 2; i<navNodes.length;i+=2){
             if(click === navNodes[i].getAttribute('name')){
                 console.log(navNodes[i]);

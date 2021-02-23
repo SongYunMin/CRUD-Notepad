@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 });
 
 // Save 기능은 메모장에 제목과 메모 내용을 JSON 형태로 저장하면 됨
-app.post('/save', (req,res) =>{
+app.post('/save', (req,res) => {
 	console.log(req.body.title);
 	console.log(req.body.memo);
 	const input = {

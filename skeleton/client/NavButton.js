@@ -1,5 +1,4 @@
 class NavButton {
-    #notepadInstance
     #navDom
     #loadDom
     #saveDom
@@ -41,7 +40,8 @@ class NavButton {
             } else if (e.target.classList.contains('saveBT')) {
                 const notepadList = document.querySelector('.notepad-section').childNodes;
                 const tabTitleList = document.querySelector('.tabList').childNodes;
-                console.log(tabTitleList);
+
+                // Title, Memo 추출
                 for (let i = 1; i < notepadList.length; i+=2) {
                     if(e.target.getAttribute('name') ===
                     notepadList[i].getAttribute('name')) {
@@ -50,15 +50,16 @@ class NavButton {
                     }
                 }
 
+                // 탭 제목 변경
                 for(let i=1;i<tabTitleList.length; i++){
                     if(e.target.getAttribute('name') ===
                     tabTitleList[i].getAttribute('name')){
                         tabTitleList[i].innerHTML =
-                            `        <button class="tabBT-bt" name=${i}>${this.#title}</button>`;
+                            `<button class="tabBT-bt" name=${i}>${this.#title}</button>`;
                     }
                 }
 
-                // TODO : 함수화 해도 괜찮을듯?
+                // TODO : 클래스 따로 만들어서 인스턴스화 해도 괜찮을듯?
                 $.ajax({
                     url: '/save',
                     dataType: 'json',
@@ -76,6 +77,5 @@ class NavButton {
             }
         });
     }
-
 
 }

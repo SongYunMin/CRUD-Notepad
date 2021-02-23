@@ -25,8 +25,6 @@ class Notepad {
         this.makeNavigation();
         this.addNotepadTab();
         this.changeTab();
-        // this.saveButtonListener();
-        // this.loadButtonListener();
     }
 
     makeHeader(){
