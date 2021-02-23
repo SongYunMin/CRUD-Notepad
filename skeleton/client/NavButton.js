@@ -33,13 +33,13 @@ class NavButton {
         this.navButtonEvent();
     }
 
+    // TODO : 저장시에 탭 이름 제목으로
     navButtonEvent() {
         this.#navDom.addEventListener('click', (e) => {
             console.log(e.target.getAttribute('class'));
             if (e.target.classList.contains('loadBT')) {
                 console.log(e.target);
             } else if (e.target.classList.contains('saveBT')) {
-                // TODO : 몇번째 탭의 노트패드인지 확인 필요 함
                 const list = document.querySelector('.notepad-section').childNodes;
                 for (let i = 1; i < list.length; i+=2) {
                     if(e.target.getAttribute('name') ===
@@ -48,7 +48,7 @@ class NavButton {
                         this.#memo = list[i].querySelector('.notepadMemo').value;
                     }
                 }
-
+                // TODO : 함수화 해도 괜찮을듯?
                 $.ajax({
                     url: '/save',
                     dataType: 'json',
@@ -57,8 +57,15 @@ class NavButton {
                         title: this.#title,
                         memo: this.#memo
                     },
+                    success: function (result) {
+                        if (result === 'ok') {
+                            alert("성공적으로 저장되었습니다.");
+                        }
+                    }
                 });
             }
         });
     }
+
+
 }

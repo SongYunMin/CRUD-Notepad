@@ -51,7 +51,6 @@ class Notepad {
         });
     }
 
-    // TODO : 초기화 할때 changeTab
     changeTab(){
         const changeTab = this.#headerInstance.getHeaderTabList();
         changeTab.addEventListener('click', (e)=>{
