@@ -38,16 +38,26 @@ class NavButton {
         this.#navDom.addEventListener('click', (e) => {
             console.log(e.target.getAttribute('class'));
             if (e.target.classList.contains('loadBT')) {
-                console.log(e.target);
             } else if (e.target.classList.contains('saveBT')) {
-                const list = document.querySelector('.notepad-section').childNodes;
-                for (let i = 1; i < list.length; i+=2) {
+                const notepadList = document.querySelector('.notepad-section').childNodes;
+                const tabTitleList = document.querySelector('.tabList').childNodes;
+                console.log(tabTitleList);
+                for (let i = 1; i < notepadList.length; i+=2) {
                     if(e.target.getAttribute('name') ===
-                    list[i].getAttribute('name')) {
-                        this.#title = list[i].querySelector('.notepadTitle').value;
-                        this.#memo = list[i].querySelector('.notepadMemo').value;
+                    notepadList[i].getAttribute('name')) {
+                        this.#title = notepadList[i].querySelector('.notepadTitle').value;
+                        this.#memo = notepadList[i].querySelector('.notepadMemo').value;
                     }
                 }
+
+                for(let i=1;i<tabTitleList.length; i++){
+                    if(e.target.getAttribute('name') ===
+                    tabTitleList[i].getAttribute('name')){
+                        tabTitleList[i].innerHTML =
+                            `        <button class="tabBT-bt" name=${i}>${this.#title}</button>`;
+                    }
+                }
+
                 // TODO : 함수화 해도 괜찮을듯?
                 $.ajax({
                     url: '/save',
