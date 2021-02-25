@@ -4,30 +4,65 @@
 
 class Monitor {
     #monitorDom
-    #header
-    #tabList
-    #tabs
-    #navButton
+    #tab
+    #nav
+    #headerDom
+    #tabsDom
+    #navButtonDom
     constructor(monitorDom) {
         this.#monitorDom = monitorDom;
-
-        this.#header = new Header();
-        this.makeHeader(this.#header);
-
-        this.#tabs = new Tabs();
-        this.makeTabs(this.#tabs);
+        this.#tab = this.#monitorDom.querySelector('.tab');
+        this.#nav = this.#monitorDom.querySelector('.nav');
+        this.#headerDom = new Header();
+        this.makeHeader(this.#headerDom);
+        this.makeTabs();
+        this.makeNav();
+        this.changeTab();
     }
 
     makeHeader(header){
         this.#monitorDom.appendChild(header.getDom());
     }
 
-    makeTabs(tabs){
-        this.#monitorDom.appendChild(tabs.getDom());
+    makeTabs(){
+        this.#monitorDom.addEventListener('addTabs', (e)=>{
+            this.#tabsDom = new Tabs(e.detail);
+            this.#tab.appendChild(this.#tabsDom.getDom());
+        });
     }
 
+    makeNav(){
+        this.#monitorDom.addEventListener('addNavs',(e)=>{
+            console.log("Nav 생성");
+            this.#navButtonDom = new NavButton(e.detail);
+            this.#nav.appendChild(this.#navButtonDom.getDom());
+        });
+    }
 
+    changeTab(){
+        document.addEventListener('changeTab', (e)=>{
+            const tabNodes = this.#tab.childNodes;
+            const navNodes = this.#nav.childNodes;
+            console.log(tabNodes);
 
+            for(let i=1;i<tabNodes.length;i++){
+                if(e.detail === tabNodes[i].getAttribute('name')){
+                    tabNodes[i].style.visibility = 'visible';
+                }else{
+                    tabNodes[i].style.visibility = 'hidden';
+                }
+            }
+
+            for(let i=1;i<navNodes.length;i++){
+                if(e.detail === navNodes[i].getAttribute('name')){
+                    navNodes[i].style.visibility = 'visible';
+                }else{
+                    navNodes[i].style.visibility = 'hidden';
+                }
+            }
+
+        })
+    }
 
     // makeHeader(){
     //     this.#headerInstance.addHeader(this.#headerDom);

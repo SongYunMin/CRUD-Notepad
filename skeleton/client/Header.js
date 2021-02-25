@@ -6,15 +6,16 @@ class Header {
     #headerDom
     #headerAddBT
     #headerTabList
+    #tabs
     #TAB_COUNT
     #TAB_LIMIT
     constructor() {
         this.#TAB_COUNT = 1;
         this.#TAB_LIMIT = 5;
         this.prepareDom();
-        this.addTab();
+        this.makeTab();
+        // this.changeTab();
     }
-
 
     prepareDom() {
         const t = document.querySelector('.template-header');
@@ -25,15 +26,24 @@ class Header {
     }
 
     // 탭 추가 버튼 이벤트
-    addTab(){
+    makeTab(){
         this.#headerAddBT.addEventListener('click', (e)=>{
-            console.log("정상");
             if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
                 alert("탭은 다섯개 이상 생성할 수 없습니다.");
             }
             else {
-                const tabButton = new TabButton();
+                const tabButton = new TabButton(this.#TAB_COUNT);
                 this.#headerTabList.appendChild(tabButton.getDom());
+
+                // TODO : 헤더는 모니터의 하위객체, 커스텀 이벤트를 사용
+                this.#headerAddBT.dispatchEvent(new CustomEvent('addTabs', {
+                    bubbles: true,
+                    detail: this.#TAB_COUNT
+                }));
+                this.#headerAddBT.dispatchEvent(new CustomEvent('addNavs', {
+                    bubbles: true,
+                    detail: this.#TAB_COUNT
+                }))
                 this.#TAB_COUNT++;
             }
         });

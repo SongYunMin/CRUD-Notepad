@@ -1,8 +1,10 @@
 class Tabs {
     #tabsDom
-
-    constructor() {
+    #TAB_COUNT
+    constructor(count) {
+        this.#TAB_COUNT = count;
        this.prepareDom();
+       this.setElementAttribute();
     }
 
     prepareDom(){
@@ -13,6 +15,10 @@ class Tabs {
 
     getDom(){
         return this.#tabsDom;
+    }
+
+    setElementAttribute(){
+        this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
     }
 
     // addTab(notepadDom){
