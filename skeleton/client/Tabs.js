@@ -1,4 +1,4 @@
-class Tab{
+class Tabs {
     #notepadTabDom
 
     TAB_COUNT
