@@ -6,7 +6,11 @@ class Header {
     #headerDom
     #headerAddBT
     #headerTabList
+    #TAB_COUNT
+    #TAB_LIMIT
     constructor() {
+        this.#TAB_COUNT = 1;
+        this.#TAB_LIMIT = 5;
         this.prepareDom();
         this.addTab();
     }
@@ -24,8 +28,14 @@ class Header {
     addTab(){
         this.#headerAddBT.addEventListener('click', (e)=>{
             console.log("정상");
-            const tabButton = new TabButton();
-            this.#headerTabList.appendChild(tabButton.getDom());
+            if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
+                alert("탭은 다섯개 이상 생성할 수 없습니다.");
+            }
+            else {
+                const tabButton = new TabButton();
+                this.#headerTabList.appendChild(tabButton.getDom());
+                this.#TAB_COUNT++;
+            }
         });
     }
 
