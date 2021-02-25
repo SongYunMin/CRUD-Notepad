@@ -3,6 +3,7 @@ class NavButton {
     #saveBT
     #loadBT
     #TAB_COUNT
+    #data
 
     constructor(count) {
         this.#TAB_COUNT = count;
@@ -33,21 +34,40 @@ class NavButton {
                 bubbles: true,
                 detail: e.target.parentNode.getAttribute('name')
             }));
-
         });
     }
 
     saveEvent(data){
-        console.log("saveEvent!!");
-        console.log(data.title);
-        console.log(data.memo);
+        this.#data = data;
+        console.log(this.#data);
+        console.log(this.#data.title);
+        console.log(this.#data.memo);
+
+        // TODO : 문제는 Fetch 에 있었음..!
         fetch("http://localhost:8080/save", {
             method: "POST",
-            headers:{
-                'Content-Type' : 'application/json',
+            headers:{'Content-Type': 'application/json',},
+            data: {
+                title:this.#data.title,
+                memo: this.#data.memo
             },
-            data: JSON.stringify(data),
         }).then((response)=>
-            console.log(response));
+            console.log(response)
+        )
+
+        // $.ajax({
+        //     url: '/save',
+        //     dataType: 'json',
+        //     type: 'POST',
+        //     data: {
+        //         title: this.#data.title,
+        //         memo: this.#data.memo
+        //     },
+        //     success: function (result) {
+        //         if (result === 'ok') {
+        //             alert("성공적으로 저장되었습니다.");
+        //         }
+        //     }
+        // });
     }
 }
