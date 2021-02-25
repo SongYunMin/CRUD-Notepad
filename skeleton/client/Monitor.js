@@ -22,10 +22,6 @@ class Monitor {
         this.#monitorDom.appendChild(header.getDom());
     }
 
-    // makeTabList(tabList){
-    //     this.#monitorDom.appendChild(tabList.getDom());
-    // }
-
     makeTabs(tabs){
         this.#monitorDom.appendChild(tabs.getDom());
     }
