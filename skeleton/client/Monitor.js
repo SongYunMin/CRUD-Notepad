@@ -5,7 +5,7 @@
 class Monitor {
     #monitorDom
     #header
-    #tablist
+    #tabList
     #tabs
     #navButton
     constructor(monitorDom) {
@@ -13,14 +13,24 @@ class Monitor {
 
         this.#header = new Header();
         this.makeHeader(this.#header);
-        this.#tablist = new TabList();
 
+        this.#tabs = new Tabs();
+        this.makeTabs(this.#tabs);
     }
-
 
     makeHeader(header){
         this.#monitorDom.appendChild(header.getDom());
     }
+
+    // makeTabList(tabList){
+    //     this.#monitorDom.appendChild(tabList.getDom());
+    // }
+
+    makeTabs(tabs){
+        this.#monitorDom.appendChild(tabs.getDom());
+    }
+
+
 
 
     // makeHeader(){

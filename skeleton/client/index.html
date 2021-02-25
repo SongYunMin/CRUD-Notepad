@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="./TabList.js"
+    <script src="./TabList.js"></script>
     <script src="./Tabs.js"></script>
     <script src="./NavButton.js"></script>
     <script src="./Monitor.js"></script>
@@ -20,10 +20,26 @@
     </section>
 </template>
 
-<template class="template-tablist">
+ <!-- TODO : 굳이 이렇게 템플릿을 너무 나눠야 하나?? -->
+<template class="template-tabList">
     <ul class="tabList">
 
     </ul>
+</template>
+
+<template class="template-tabBT">
+    <li class="tabBT-li">
+        <button class="tabBT-bt"></button>
+    </li>
+</template>
+
+<template class="template-tab">
+    <article class="notepadTab">
+        <label>
+            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요"/>
+            <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
+        </label>
+    </article>
 </template>
 
 <template class="template-notepad">
@@ -39,21 +55,9 @@
     </nav>
 </template>
 
-<template class="template-tabBT">
-    <li class="tabBT-li">
-        <button class="tabBT-bt"></button>
-    </li>
-</template>
 
-<!-- TODO : Title, Memo CSS 수정 -->
-<template class="template-tab">
-    <article class="notepadTab">
-        <label>
-            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요"/>
-            <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
-        </label>
-    </article>
-</template>
+
+
 
 <script>
     let monitor = new Monitor(

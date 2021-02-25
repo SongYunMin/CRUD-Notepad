@@ -5,8 +5,11 @@
 class Header {
     #headerDom
     #headerAddBT
+    #tabList
     constructor() {
         this.prepareDom();
+        this.#tabList = new TabList();
+        this.makeTabList(this.#tabList);
     }
 
     prepareDom() {
@@ -16,9 +19,19 @@ class Header {
         this.#headerAddBT = this.#headerDom.querySelector('.addTabBT');
     }
 
+    makeTabList(tabList){
+        this.#headerDom.appendChild(tabList.getDom());
+    }
+
+    addTab(){
+
+    }
+
     getDom(){
         return this.#headerDom;
     }
+
+
 }
     //
     // addHeader(){
