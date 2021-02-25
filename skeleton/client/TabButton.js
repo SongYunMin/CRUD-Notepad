@@ -16,7 +16,6 @@ class TabButton{
         this.#tabBT = this.#tabButtonDom.querySelector('.tabBT-bt');
     }
 
-    // TODO : 탭에 들어갈 속성값 세팅 TAB_COUNT 어떻게 받아오
     setElementAttribute(){
         this.#tabBT.setAttribute('name', this.#TAB_COUNT);
         this.#tabButtonDom.setAttribute('name', this.#TAB_COUNT);
@@ -27,7 +26,6 @@ class TabButton{
         return this.#tabButtonDom;
     }
 
-    // TODO : DispatchEvent 비동기 문제 있는듯
     changeTab(){
         this.#tabBT.addEventListener('click',(e)=>{
             console.log(e.target);

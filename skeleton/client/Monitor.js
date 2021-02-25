@@ -18,6 +18,7 @@ class Monitor {
         this.makeTabs();
         this.makeNav();
         this.changeTab();
+        this.changeTitle();
     }
 
     makeHeader(header){
@@ -33,7 +34,6 @@ class Monitor {
 
     makeNav(){
         this.#monitorDom.addEventListener('addNavs',(e)=>{
-            console.log("Nav 생성");
             this.#navButtonDom = new NavButton(e.detail);
             this.#nav.appendChild(this.#navButtonDom.getDom());
         });
@@ -43,7 +43,6 @@ class Monitor {
         document.addEventListener('changeTab', (e)=>{
             const tabNodes = this.#tab.childNodes;
             const navNodes = this.#nav.childNodes;
-            console.log(tabNodes);
             for(let i=1;i<tabNodes.length;i++){
                 if(e.detail === tabNodes[i].getAttribute('name')){
                     tabNodes[i].style.visibility = 'visible';
@@ -61,4 +60,16 @@ class Monitor {
         })
     }
 
+    changeTitle(){
+        document.addEventListener('changeTitle', (e)=>{
+            const tabList = this.#tab.childNodes
+            for(let i=1;i<tabList.length;i++){
+                if(e.detail === tabList[i].getAttribute('name')) {
+                    const titleNode = tabList[i].querySelector('.notepadTitle');
+                    const title = titleNode.value;
+                    this.#headerDom.changeTitle(tabList[i].getAttribute('name'),title);
+                }
+            }
+        });
+    }
 }

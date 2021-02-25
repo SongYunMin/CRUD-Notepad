@@ -1,7 +1,3 @@
-/*
-1개의 Header 는 1개의 TabList 를 가질 수 있음
- */
-
 class Header {
     #headerDom
     #headerAddBT
@@ -13,7 +9,6 @@ class Header {
         this.#TAB_LIMIT = 5;
         this.prepareDom();
         this.makeTab();
-        this.changeTitle();
     }
 
     prepareDom() {
@@ -45,20 +40,14 @@ class Header {
         });
     }
 
-    changeTitle(){
-        document.addEventListener('changeTitle', (e)=>{
-            console.log(e.detail);
-            const listNodes = this.#headerTabList.childNodes;
-            for(let i=1;i<listNodes.length;i++){
-                if(e.detail === listNodes[i].getAttribute('name')){
-                    const button = listNodes[i].querySelector('.tabBT-bt');
-                    button.dispatchEvent(new CustomEvent('modifyTitle', {
-                        bubbles: true,
-                        detail: button
-                    }));
-                }
+    changeTitle(index, title){
+        const tabList = this.#headerTabList.childNodes;
+        for(let i=1;i<tabList.length;i++){
+            if(index === tabList[i].getAttribute('name')){
+                const titleBT = tabList[i].querySelector('.tabBT-bt');
+                titleBT.innerHTML = `${title}`;
             }
-        });
+        }
     }
 
     getDom(){
