@@ -27,6 +27,7 @@ class TabButton{
         return this.#tabButtonDom;
     }
 
+    // TODO : DispatchEvent 비동기 문제 있는듯
     changeTab(){
         this.#tabBT.addEventListener('click',(e)=>{
             console.log(e.target);

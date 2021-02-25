@@ -5,6 +5,7 @@ class Tabs {
         this.#TAB_COUNT = count;
        this.prepareDom();
        this.setElementAttribute();
+       this.changeTitle();
     }
 
     prepareDom(){
@@ -19,5 +20,11 @@ class Tabs {
 
     setElementAttribute(){
         this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
+    }
+
+    changeTitle(){
+        document.addEventListener('modifyTitle', (e)=>{
+            console.log(e.detail);
+        });
     }
 }

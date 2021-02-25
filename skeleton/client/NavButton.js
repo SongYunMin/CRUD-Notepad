@@ -30,7 +30,7 @@ class NavButton {
         this.#saveBT.addEventListener('click',(e)=>{
             e.target.dispatchEvent(new CustomEvent('changeTitle', {
                 bubbles: true,
-                detail: e.target
+                detail: e.target.parentNode.getAttribute('name')
             }))
         })
     }
