@@ -5,26 +5,28 @@
 class Header {
     #headerDom
     #headerAddBT
-    #tabList
+    #headerTabList
     constructor() {
         this.prepareDom();
-        this.#tabList = new TabList();
-        this.makeTabList(this.#tabList);
+        this.addTab();
     }
+
 
     prepareDom() {
         const t = document.querySelector('.template-header');
         const tmpl = document.importNode(t.content, true);
         this.#headerDom = tmpl.querySelector('.main-header');
         this.#headerAddBT = this.#headerDom.querySelector('.addTabBT');
+        this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
-    makeTabList(tabList){
-        this.#headerDom.appendChild(tabList.getDom());
-    }
-
+    // 탭 추가 버튼 이벤트
     addTab(){
-
+        this.#headerAddBT.addEventListener('click', (e)=>{
+            console.log("정상");
+            const tabButton = new TabButton();
+            this.#headerTabList.appendChild(tabButton.getDom());
+        });
     }
 
     getDom(){
