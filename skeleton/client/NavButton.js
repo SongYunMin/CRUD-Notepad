@@ -3,6 +3,7 @@ class NavButton {
     #saveBT
     #loadBT
     #TAB_COUNT
+
     constructor(count) {
         this.#TAB_COUNT = count;
         this.prepareDom();
@@ -10,7 +11,7 @@ class NavButton {
         this.changeTitle();
     }
 
-    prepareDom(){
+    prepareDom() {
         const t = document.querySelector('.template-nav');
         const tmpl = document.importNode(t.content, true);
         this.#navDom = tmpl.querySelector('.notepad-nav');
@@ -18,20 +19,35 @@ class NavButton {
         this.#saveBT = this.#navDom.querySelector('.saveBT');
     }
 
-    getDom(){
+    getDom() {
         return this.#navDom;
     }
 
-    setElementAttribute(){
+    setElementAttribute() {
         this.#navDom.setAttribute('name', this.#TAB_COUNT);
     }
 
-    changeTitle(){
-        this.#saveBT.addEventListener('click',(e)=>{
+    changeTitle() {
+        this.#saveBT.addEventListener('click', (e) => {
             e.target.dispatchEvent(new CustomEvent('changeTitle', {
                 bubbles: true,
                 detail: e.target.parentNode.getAttribute('name')
-            }))
-        })
+            }));
+
+        });
+    }
+
+    saveEvent(data){
+        console.log("saveEvent!!");
+        console.log(data.title);
+        console.log(data.memo);
+        fetch("http://localhost:8080/save", {
+            method: "POST",
+            headers:{
+                'Content-Type' : 'application/json',
+            },
+            data: JSON.stringify(data),
+        }).then((response)=>
+            console.log(response));
     }
 }
