@@ -44,7 +44,6 @@ class Monitor {
             const tabNodes = this.#tab.childNodes;
             const navNodes = this.#nav.childNodes;
             console.log(tabNodes);
-
             for(let i=1;i<tabNodes.length;i++){
                 if(e.detail === tabNodes[i].getAttribute('name')){
                     tabNodes[i].style.visibility = 'visible';
@@ -52,7 +51,6 @@ class Monitor {
                     tabNodes[i].style.visibility = 'hidden';
                 }
             }
-
             for(let i=1;i<navNodes.length;i++){
                 if(e.detail === navNodes[i].getAttribute('name')){
                     navNodes[i].style.visibility = 'visible';
@@ -60,36 +58,7 @@ class Monitor {
                     navNodes[i].style.visibility = 'hidden';
                 }
             }
-
         })
     }
 
-    // makeHeader(){
-    //     this.#headerInstance.addHeader(this.#headerDom);
-    // }
-    //
-    // makeNotepad(){
-    //     this.#tabInstance.addTab(this.#notepadDom);
-    // }
-    //
-    // makeNavigation(){
-    //     this.#navButtonInstance.addNav(this.#notepadDom);
-    // }
-    //
-    // addNotepadTab(){
-    //     const addTab = this.#headerInstance.getAddTabButtonDom();
-    //     addTab.addEventListener('click', ()=>{
-    //         if(!(this.TAB_COUNT >= this.TAB_LIMIT + 1)){
-    //             this.#tabInstance.addTab(this.#notepadDom);
-    //             this.#navButtonInstance.addNav(this.#notepadDom);
-    //         }
-    //     });
-    // }
-    //
-    // changeTab(){
-    //     const changeTab = this.#headerInstance.getHeaderTabList();
-    //     changeTab.addEventListener('click', (e)=>{
-    //         this.#tabInstance.changeTab(this.#notepadDom, e.target);
-    //     });
-    // }
 }
