@@ -3,13 +3,16 @@ class NavButton {
     #saveBT
     #loadBT
     #TAB_COUNT
-    #data
+    #saveData
+    #loadData
+
 
     constructor(count) {
         this.#TAB_COUNT = count;
         this.prepareDom();
         this.setElementAttribute();
         this.changeTitle();
+        this.loadNotepad();
     }
 
     prepareDom() {
@@ -37,37 +40,55 @@ class NavButton {
         });
     }
 
+    loadNotepad(){
+        let xhr = new XMLHttpRequest();
+        this.#loadBT.addEventListener('click', (e)=>{
+            xhr.onload = function(){
+                if(xhr.status === 200 || xhr.status === 201){
+                    console.log(xhr.responseText);
+                }else{
+                    console.error(xhr.responseText);
+                }
+            }
+            console.log("Load Notepad!!");
+            xhr.open('GET', 'http://localhost:8080/load');
+            xhr.send();
+        });
+
+        // 비동기 처리
+        xhr.addEventListener('load',()=>{
+            console.log("받은 데이터 :", xhr.responseText);
+            this.#loadData = JSON.parse(xhr.responseText);
+            console.log("JSON 변환! : ", this.#loadData);
+        })
+    }
+
     saveEvent(data){
-        this.#data = data;
-        console.log(this.#data);
-        console.log(this.#data.title);
-        console.log(this.#data.memo);
+        this.#saveData = data;
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+            if(xhr.status === 200 || xhr.status === 201){
+                console.log(xhr.responseText);
+            }else{
+                console.error(xhr.responseText);
+            }
+        };
+        xhr.open('POST','http://localhost:8080/save');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(this.#saveData));
 
-        // TODO : 문제는 Fetch 에 있었음..!
-        fetch("http://localhost:8080/save", {
-            method: "POST",
-            headers:{'Content-Type': 'application/json',},
-            data: {
-                title:this.#data.title,
-                memo: this.#data.memo
-            },
-        }).then((response)=>
-            console.log(response)
-        )
-
-        // $.ajax({
-        //     url: '/save',
-        //     dataType: 'json',
-        //     type: 'POST',
+        // fetch("http://localhost:8080/save", {
+        //     method: "POST",
+        //     headers:{
+        //         'Content-Type': 'application/json',
+        //         'Accept' : 'application/json',
+        //     },
         //     data: {
-        //         title: this.#data.title,
+        //         title:this.#data.title,
         //         memo: this.#data.memo
         //     },
-        //     success: function (result) {
-        //         if (result === 'ok') {
-        //             alert("성공적으로 저장되었습니다.");
-        //         }
-        //     }
-        // });
+        // }).then((response)=>
+        //     console.log(response)
+        // )
     }
 }

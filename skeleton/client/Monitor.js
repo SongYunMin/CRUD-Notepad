@@ -1,6 +1,3 @@
-/*
-1개의 monitor 는 1개의 Header 를 가질 수 있음
- */
 
 class Monitor {
     #monitorDom
