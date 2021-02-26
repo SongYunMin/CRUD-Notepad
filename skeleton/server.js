@@ -7,6 +7,24 @@ app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(express.static('client'));
 
+// 1. 저장 버튼을 누르면 메모를 JSON 으로 변경
+// 2. 서버에 전송한 후에 텍스트 제이슨을 읽어옴
+// 3. 전송받은 제이슨을 텍스트에 푸시
+
+fs.access('./notepad.txt', fs.constants.F_OK, (err =>{
+	if(err){
+		fs.writeFile('./notepad.txt', '', (err)=>{
+			if(err){
+				console.log("File creation failed : ", err);
+			}else{
+				console.log("Make Notepad File");
+			}
+		})
+	}else{
+		console.log("Notepad file already exists.");
+	}
+}));
+
 // Built -in express
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'index.html'));
@@ -14,27 +32,34 @@ app.get('/', (req, res) => {
 
 // Save Function
 app.post('/save', (req, res) => {
+	let obj = {table : []};
 	const input = {
 		title: req.body.title,
 		memo: req.body.memo
 	}
-	const saveTxt = JSON.stringify(input);
-	fs.appendFile('./notepad.txt', saveTxt, function (err) {
-		if (err) {
-			console.log("File Write Error!");
-		} else {
-			console.log("OK");
+	fs.readFile('./notepad.txt', 'UTF-8', function(err, data){
+		if(data !== '') {			// 파일이 비지 않았다면
+			obj = JSON.parse(data);
 		}
+			obj.table.push(input);
+		let json = JSON.stringify(obj);
+		fs.writeFile('./notepad.txt', json, function (err) {
+			if (err) {
+				console.log("File Write Error!");
+			} else {
+				console.log("File Write successful!");
+			}
+		});
 	});
-	res.end('ok');
 });
 
+// Load Function
 app.get('/load',(req, res) =>{
 	fs.readFile('./notepad.txt', 'UTF-8',function(err, data){
 		console.log(data);
 		res.send(data);
 	})
-})
+});
 
 const server = app.listen(8080, () => {
 	console.log('Server started!');
