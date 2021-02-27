@@ -58,6 +58,7 @@ app.get('/load', (req, res) => {
         for (let i = 0; i < textData.table.length; i++) {
             if(textData.table[i].title === search){
                 res.send(textData.table[i]);
+                return 1; // [FIX] : return 을 입력하지 않아서 중복 response 됨.
             }
         }
         // TODO : Redirect Error
