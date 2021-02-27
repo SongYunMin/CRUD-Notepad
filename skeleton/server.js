@@ -48,6 +48,7 @@ app.post('/save', (req, res) => {
         });
     });
 });
+
 // Load Function
 // TODO : redirect 처리 확인 (중복 응답)
 app.get('/load', (req, res) => {
@@ -60,7 +61,7 @@ app.get('/load', (req, res) => {
             }
         }
         // TODO : Redirect Error
-        // res.send("False");
+        res.end("False");
     })
 });
 

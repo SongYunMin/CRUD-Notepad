@@ -46,8 +46,9 @@ class NavButton {
             const search = prompt("불러올 파일의 제목을 입력하세요.");
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.status === 201) {
-                    if (xhr.responseText === '') {
-                        alert("저장된 제목이 없습니다.")
+                    if (xhr.responseText === 'False') {
+                        alert("저장된 제목이 없습니다.");
+                        return -1;
                     } else {
                         alert("성공!");
                         // TODO : 받은 데이터 이용
@@ -100,5 +101,9 @@ class NavButton {
         // }).then((response)=>
         //     console.log(response)
         // )
+    }
+
+    loadEvent(){
+
     }
 }
