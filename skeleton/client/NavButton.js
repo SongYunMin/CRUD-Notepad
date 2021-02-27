@@ -40,27 +40,35 @@ class NavButton {
         });
     }
 
-    loadNotepad(){
+    loadNotepad() {
         let xhr = new XMLHttpRequest();
-        this.#loadBT.addEventListener('click', (e)=>{
+        this.#loadBT.addEventListener('click', (e) => {
             const search = prompt("불러올 파일의 제목을 입력하세요.");
-            xhr.onload = function(){
-                if(xhr.status === 200 || xhr.status === 201){
-                    console.log(xhr.responseText);
-                }else{
+            xhr.onload = function () {
+                if (xhr.status === 200 || xhr.status === 201) {
+                    if (xhr.responseText === '') {
+                        alert("저장된 제목이 없습니다.")
+                    } else {
+                        alert("성공!");
+                        // TODO : 받은 데이터 이용
+                        console.log(xhr.responseText);
+                    }
+                } else {
                     console.error(xhr.responseText);
                 }
             }
-            xhr.open('GET', 'http://localhost:8080/load');
+            xhr.open('GET', `http://localhost:8080/load?name=${search}`);
             xhr.send();
         });
 
         // 비동기 처리
-        xhr.addEventListener('load',()=>{
-            console.log("받은 데이터 :", xhr.responseText);
-            this.#loadData = JSON.parse(xhr.responseText);
-            console.log("JSON 변환! : ", this.#loadData);
-        })
+        //     xhr.addEventListener('load',()=>{
+        //         console.log("받은 데이터 :", xhr.responseText);
+        //         this.#loadData = JSON.parse(xhr.responseText);
+        //         console.log("JSON 변환! : ", this.#loadData);
+        //
+        //     })
+        // }
     }
 
 
