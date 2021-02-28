@@ -50,7 +50,6 @@ app.post('/save', (req, res) => {
 });
 
 // Load Function
-// TODO : redirect 처리 확인 (중복 응답)
 app.get('/load', (req, res) => {
     fs.readFile('./notepad.txt', 'UTF-8', function (err, data) {
         const textData = JSON.parse(data);
@@ -61,8 +60,7 @@ app.get('/load', (req, res) => {
                 return 1; // [FIX] : return 을 입력하지 않아서 중복 response 됨.
             }
         }
-        // TODO : Redirect Error
-        res.end("False");
+        res.send("False");
     })
 });
 

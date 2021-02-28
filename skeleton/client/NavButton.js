@@ -12,7 +12,8 @@ class NavButton {
         this.prepareDom();
         this.setElementAttribute();
         this.changeTitle();
-        this.loadNotepad();
+        // this.loadNotepad();
+        this.paintNotepad();
     }
 
     prepareDom() {
@@ -40,8 +41,16 @@ class NavButton {
         });
     }
 
-    loadNotepad() {
+    paintNotepad(){
+        this.loadNotepad(function(result){
+            console.log(result);
+        })
+
+    }
+
+    loadNotepad(callback) {
         let xhr = new XMLHttpRequest();
+        let result;
         this.#loadBT.addEventListener('click', (e) => {
             const search = prompt("불러올 파일의 제목을 입력하세요.");
             xhr.onload = function () {
@@ -51,8 +60,7 @@ class NavButton {
                         return -1;
                     } else {
                         alert("성공!");
-                        // TODO : 받은 데이터 이용
-                        console.log(xhr.responseText);
+                        callback(xhr.responseText);  // [FIX] Callback 을 이용하여 해결
                     }
                 } else {
                     console.error(xhr.responseText);
@@ -71,6 +79,8 @@ class NavButton {
         //     })
         // }
     }
+
+
 
 
     // TODO : Save 할 때 JSON 배열에 저장해야 함
