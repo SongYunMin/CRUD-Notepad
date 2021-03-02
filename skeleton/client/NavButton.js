@@ -45,14 +45,12 @@ class NavButton {
             for(let i = 1; i < Nodes.length;i++){
                 if(index === Nodes[i].getAttribute('name')){
                     targetNode = Nodes[i];
-                    console.log(targetNode);
                 }
             }
             const data = {
                 result : result,
                 targetNode : targetNode
             }
-            // [Fix] Target을 이용하여 Index전달
             target.dispatchEvent(new CustomEvent('custom-loadTab', {
                 bubbles: true,
                 detail: data

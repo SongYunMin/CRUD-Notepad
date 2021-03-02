@@ -40,7 +40,7 @@ class Header {
         });
     }
 
-
+    // TODO : Tab Button 으로 넘겨서 처리할 필요 있음
     changeTitle(index, data){
         const tabList = this.#headerTabList.childNodes;
         for(let i=1;i<tabList.length;i++){

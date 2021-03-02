@@ -39,7 +39,6 @@ class Tabs {
     }
 
     changeTab(click, tabs, navs){
-        console.log("이게필요한거거든");
         for(let i=0;i<tabs.length;i++){
             if(click === tabs[i].getAttribute('name')){
                 tabs[i].style.visibility = 'visible';
@@ -52,6 +51,17 @@ class Tabs {
                 navs[i].style.visibility = 'visible';
             }else{
                 navs[i].style.visibility = 'hidden';
+            }
+        }
+    }
+
+    changeTabTitle(click, tabs){
+        for(let i=0;i<tabs.length;i++) {
+            if (click === tabs[i].getAttribute('name')) {
+                return {
+                    title: tabs[i].querySelector('.notepadTitle').value,
+                    memo: tabs[i].querySelector('.notepadMemo').value
+                };
             }
         }
     }
