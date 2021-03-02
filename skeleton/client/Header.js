@@ -19,7 +19,6 @@ class Header {
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
-    // 탭 추가 버튼 이벤트
     makeTab(){
         this.#headerAddBT.addEventListener('click', (e)=>{
             if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
@@ -40,7 +39,6 @@ class Header {
         });
     }
 
-    // TODO : Tab Button 으로 넘겨서 처리할 필요 있음
     changeTitle(index, data){
         const tabList = this.#headerTabList.childNodes;
         for(let i=1;i<tabList.length;i++){
@@ -53,9 +51,5 @@ class Header {
 
     getDom(){
         return this.#headerDom;
-    }
-
-    getBtDom(){
-        return this.#headerTabList;
     }
 }

@@ -62,14 +62,13 @@ class NavButton {
         let xhr = new XMLHttpRequest();
         this.#loadBT.addEventListener('click', (e) => {
             const index = e.target.parentNode.getAttribute('name');
-            const search = prompt("불러올 파일의 제목을 입력하세요.");
+            const search = prompt("불러올 메모의 제목을 입력하세요.");
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.status === 201) {
                     if (xhr.responseText === 'False') {
                         alert("저장된 제목이 없습니다.");
                         return -1;
                     } else {
-                        alert("성공!");
                         callback(xhr.responseText, index, e.target);  // [FIX] Callback 을 이용하여 해결
                     }
                 } else {

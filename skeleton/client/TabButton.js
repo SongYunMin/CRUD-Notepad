@@ -26,7 +26,6 @@ class TabButton{
         return this.#tabButtonDom;
     }
 
-
     changeTab(){
         this.#tabBT.addEventListener('click',(e)=>{
             console.log(e.target);

@@ -45,7 +45,6 @@ class Monitor {
 
     changeTab() {
         document.addEventListener('custom-changeTab', (e) => {
-            console.log(e.detail);
             this.#tabDom.changeTab(e.detail, this.#tabsArray, this.#navsArray);
         });
     }
@@ -53,7 +52,6 @@ class Monitor {
     changeTitle() {
         document.addEventListener('custom-changeTitle', (e) => {
             const data = this.#tabDom.changeTabTitle(e.detail, this.#tabsArray);
-            console.log(data);
             this.#headerDom.changeTitle(e.detail, data);
             this.#navDom.saveEvent(data);
         });
@@ -62,7 +60,6 @@ class Monitor {
     loadTab() {
         this.#navDom.getDom().addEventListener('custom-loadTab', (e) => {
             const index = e.detail.targetNode.getAttribute('name');
-            console.log(index);
             this.#tabDom.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
     }
