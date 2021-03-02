@@ -26,11 +26,12 @@ class TabButton{
         return this.#tabButtonDom;
     }
 
+
     changeTab(){
         this.#tabBT.addEventListener('click',(e)=>{
             console.log(e.target);
             const click = e.target.getAttribute('name');
-            document.dispatchEvent(new CustomEvent('changeTab', {
+            document.dispatchEvent(new CustomEvent('custom-changeTab', {
                 bubbles: true,
                 detail: click
             }))

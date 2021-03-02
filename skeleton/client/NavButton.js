@@ -31,7 +31,7 @@ class NavButton {
 
     changeTitle() {
         this.#saveBT.addEventListener('click', (e) => {
-            e.target.dispatchEvent(new CustomEvent('changeTitle', {
+            e.target.dispatchEvent(new CustomEvent('custom-changeTitle', {
                 bubbles: true,
                 detail: e.target.parentNode.getAttribute('name')
             }));
@@ -53,7 +53,7 @@ class NavButton {
                 targetNode : targetNode
             }
             // [Fix] Target을 이용하여 Index전달
-            target.dispatchEvent(new CustomEvent('loadTab', {
+            target.dispatchEvent(new CustomEvent('custom-loadTab', {
                 bubbles: true,
                 detail: data
             }))

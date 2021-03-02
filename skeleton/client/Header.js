@@ -27,11 +27,11 @@ class Header {
             } else {
                 const tabButton = new TabButton(this.#TAB_COUNT);
                 this.#headerTabList.appendChild(tabButton.getDom());
-                this.#headerAddBT.dispatchEvent(new CustomEvent('addTabs', {
+                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addTabs', {
                     bubbles: true,
                     detail: this.#TAB_COUNT
                 }));
-                this.#headerAddBT.dispatchEvent(new CustomEvent('addNavs', {
+                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addNavs', {
                     bubbles: true,
                     detail: this.#TAB_COUNT
                 }))
@@ -39,6 +39,7 @@ class Header {
             }
         });
     }
+
 
     changeTitle(index, data){
         const tabList = this.#headerTabList.childNodes;
@@ -52,5 +53,9 @@ class Header {
 
     getDom(){
         return this.#headerDom;
+    }
+
+    getBtDom(){
+        return this.#headerTabList;
     }
 }
