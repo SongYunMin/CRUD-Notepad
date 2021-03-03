@@ -34,6 +34,7 @@ app.post('/save', (req, res) => {
     const input = {
         title: req.body.title,
         memo: req.body.memo
+
     }
     fs.readFile('./notepad.txt', 'UTF-8', function (err, data) {
         if (data !== '') {
