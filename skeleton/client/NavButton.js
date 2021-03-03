@@ -65,7 +65,7 @@ class NavButton {
             const search = prompt("불러올 메모의 제목을 입력하세요.");
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.status === 201) {
-                    if (xhr.responseText === 'False') {
+                    if (xhr.responseText === 'FALSE') {
                         alert("저장된 제목이 없습니다.");
                         return -1;
                     } else {
