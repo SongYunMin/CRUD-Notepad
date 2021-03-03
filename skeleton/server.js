@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('client'));
 
-// TODO : 읽는 곳에 문제 있는 듯 함
+// TODO : 서버가 띄워지고 나서 notepad.txt 가 삭제되면 오류 발생
 fs.access('./notepad.txt', fs.constants.F_OK, (err => {
     if (err) {
         fs.writeFile('./notepad.txt', '', (err) => {
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Save Function
+// TODO : 파일 명을 그냥 title 으로 생성해도 될듯?
 app.post('/save', (req, res) => {
     let obj = {table: []};
     const input = {
@@ -64,6 +65,7 @@ app.get('/load', (req, res) => {
         res.send("False");
     })
 });
+
 
 const server = app.listen(8080, () => {
     console.log('Server started!');

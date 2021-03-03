@@ -28,6 +28,7 @@ class Monitor {
 
     makeTabs() {
         this.#monitorDom.addEventListener('custom-addTabs', (e) => {
+            // tabDom은 Dom 이 아니라 클래스
             this.#tabDom = new Tabs(e.detail);
             this.#tabsDom.appendChild(this.#tabDom.getDom());
             this.#tabsArray.push(this.#tabDom.getDom());
