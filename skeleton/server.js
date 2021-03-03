@@ -16,28 +16,41 @@ app.get('/', (req, res) => {
 // Save Function
 app.post('/save', (req, res) => {
     // TODO : 서버가 띄워지고 나서 notepad.txt 가 삭제되면 오류 발생
-    fs.access(`./data/${req.body.title}.txt`, fs.constants.F_OK, (err => {
-        if (err) {
-            fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
-                if (err) {
-                    console.log("File creation failed : ", err);
-                } else {
-                    console.log("Make Notepad File");
-                }
-            });
-        } else {
-            console.log("Notepad file already exists.");
-        }
-    }));
+    // fs.accessSync(`./data/${req.body.title}.txt`, fs.constants.F_OK, (err => {
+    //     if (err) {
+    //         fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
+    //             if (err) {
+    //                 console.log("File creation failed : ", err);
+    //             } else {
+    //                 console.log("Make Notepad File");
+    //             }
+    //         });
+    //     } else {
+    //         console.log("Notepad file already exists.");
+    //     }
+    // }));
+    try {
+        fs.accessSync(`./data/${req.body.title}.txt`, fs.constants.F_OK);
+        console.log("파일 읽기 성공");
+    }catch{
+        fs.writeFile(`./data/${req.body.title}.txt`, '', (err)=>{
+           if(err){
+               console.log("File creation failed : ", err);
+           } else{
+               console.log("Make Notepad File");
+           }
+        });
+    }
 
-    console.log(req.body.title);
     let obj = {table: []};
     const input = {
         title: req.body.title,
         memo: req.body.memo
     }
     fs.readFile(`./data/${req.body.title}.txt`, 'UTF-8', function (err, data) {
+        console.log(req.body.title);
         if (data !== '') {
+            console.log(data,"가 데이터 입니다.");
             obj = JSON.parse(data);
         }
         obj.table.push(input);
