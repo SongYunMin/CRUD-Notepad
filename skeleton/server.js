@@ -7,20 +7,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('client'));
 
-// TODO : 서버가 띄워지고 나서 notepad.txt 가 삭제되면 오류 발생
-fs.access('./notepad.txt', fs.constants.F_OK, (err => {
-    if (err) {
-        fs.writeFile('./notepad.txt', '', (err) => {
-            if (err) {
-                console.log("File creation failed : ", err);
-            } else {
-                console.log("Make Notepad File");
-            }
-        });
-    } else {
-        console.log("Notepad file already exists.");
-    }
-}));
 
 // Built -in express
 app.get('/', (req, res) => {
@@ -28,20 +14,35 @@ app.get('/', (req, res) => {
 });
 
 // Save Function
-// TODO : 파일 명을 그냥 title 으로 생성해도 될듯?
 app.post('/save', (req, res) => {
+    // TODO : 서버가 띄워지고 나서 notepad.txt 가 삭제되면 오류 발생
+    fs.access(`./data/${req.body.title}.txt`, fs.constants.F_OK, (err => {
+        if (err) {
+            fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
+                if (err) {
+                    console.log("File creation failed : ", err);
+                } else {
+                    console.log("Make Notepad File");
+                }
+            });
+        } else {
+            console.log("Notepad file already exists.");
+        }
+    }));
+
+    console.log(req.body.title);
     let obj = {table: []};
     const input = {
         title: req.body.title,
         memo: req.body.memo
     }
-    fs.readFile('./notepad.txt', 'UTF-8', function (err, data) {
+    fs.readFile(`./data/${req.body.title}.txt`, 'UTF-8', function (err, data) {
         if (data !== '') {
             obj = JSON.parse(data);
         }
         obj.table.push(input);
         let json = JSON.stringify(obj);
-        fs.writeFile('./notepad.txt', json, function (err) {
+        fs.writeFile(`./data/${req.body.title}.txt`, json, function (err) {
             if (err) {
                 console.log("File Write Error!");
             } else {
