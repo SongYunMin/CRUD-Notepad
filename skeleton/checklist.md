@@ -240,8 +240,6 @@ console.log('시작');
 끝
 ```
 
-출처 : [비동기 프로그래밍]([https://helloworldjavascript.net/pages/285-async.html](https://helloworldjavascript.net/pages/285-async.html))
-
 ## HTTP 통신을 하기 위해서는?
 
 HTTP 통신을 하기 위해 `Promise` 가 어떻게 사용되는지 살펴 보겠습니다. 아래 예제에 사용된 `axios` 는 Javascript를 통해 직접 요청을 보내기 위해 널리 사용되는 라이브러리 입니다. `GET` 메서드로 요청을 보내기 위해 `axios.get()` 함수를 사용할 수 있는데, 이 때 Promise 객체가 반환됩니다.
