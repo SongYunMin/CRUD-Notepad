@@ -4,7 +4,7 @@ const express = require('express'),
 const fs = require('fs');
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false})); // TODO : urlencoded 는 여기서 사용 X
 app.use(express.static('client'));
 
 // Built -in express
@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// TODO : File 경로 직접 접근 예외처리 필요 ex) ../ 등
 // Save Function
 app.post('/save', (req, res) => {
     try {

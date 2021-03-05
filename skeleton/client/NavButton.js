@@ -59,22 +59,32 @@ class NavButton {
     }
 
     loadNotepad(callback) {
-        this.#loadBT.addEventListener('click', (e) => {
+        this.#loadBT.addEventListener('click', async (e) => {
             const index = e.target.parentNode.getAttribute('name');
             const search = prompt("불러올 메모의 제목을 입력하세요.");
-            fetch(`http://localhost:8080/load?name=${search}`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then(data =>{
-                    callback(data, index, e.target);
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("저장된 파일이 없습니다.");
-                    return -1;
-                });
+            try{
+                let response = await fetch(`http://localhost:8080/load?name=${search}`);
+                if(response.status === 200){
+                    let result = await response.json();
+                    console.log(result);
+                    callback(result, index, e.target);
+                }
+            }catch(err){
+                console.error(err);
+            }
 
+            // await fetch(`http://localhost:8080/load?name=${search}`)
+            //     .then((response) => {
+            //         return response.json();
+            //     })
+            //     .then(data =>{
+            //         callback(data, index, e.target);
+            //     })
+            //     .catch(err => {
+            //         console.error(err);
+            //         alert("저장된 파일이 없습니다.");
+            //         return -1;
+            //     });
         });
     }
 
