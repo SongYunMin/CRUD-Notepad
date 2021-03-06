@@ -17,7 +17,13 @@ app.use(session({
 // Built -in express
 app.get('/', (req, res) => {
     console.log(req.session);
-    res.sendFile(path.join(__dirname, '/client/Login.html'));
+    if(req.session.user){
+        console.log("로그인 되어있음");
+        res.redirect('/Notepad.html');
+    }else{
+        console.log("로그인 되어있지 않음");
+        res.sendFile(path.join(__dirname, '/client/Login.html'));
+    }
 });
 
 // TODO : File 경로 직접 접근 예외처리 필요 ex) ../ 등
@@ -88,15 +94,39 @@ app.post('/login', (req, res) =>{
     const ID_INDEX = ID.indexOf(req.body.id);
     const PW_INDEX = PW.indexOf(req.body.pw);
     if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
-        req.session.username = ID[ID_INDEX];
+        if(!req.session.user){
+            console.log("세션 존재하지 않음");
+            req.session.user = {
+                id:ID[ID_INDEX],
+                pw:PW[PW_INDEX],
+                name:NAME[ID_INDEX],
+                authorized : true
+            }
+        }
         res.send(NAME[ID_INDEX]);
         return 1;
     }else{
         res.send('False');
         return -1;
     }
-    // // TODO : 리다이렉트 : 경로 재재정
-    // res.redirect('/test');
+});
+
+app.get('/logout', (req, res)=>{
+   if(req.session.user){
+       console.log("Logout...");
+       req.session.destroy(err => {
+               if(err){
+                   console.log("세션 삭제 실패");
+                   return -1;
+               }
+               console.log("세션 삭제");
+               res.send("OK");
+               return 1;
+           }
+       )
+   }
+
+   return 1;
 });
 
 const server = app.listen(8080, () => {

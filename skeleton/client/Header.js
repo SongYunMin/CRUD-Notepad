@@ -1,6 +1,7 @@
 class Header {
     #headerDom
     #headerAddBT
+    #headerLogoutBT
     #headerTabList
     #TAB_COUNT
     #TAB_LIMIT
@@ -9,6 +10,7 @@ class Header {
         this.#TAB_LIMIT = 5;
         this.prepareDom();
         this.makeTab();
+        this.logoutResult();
     }
 
     prepareDom() {
@@ -16,6 +18,7 @@ class Header {
         const tmpl = document.importNode(t.content, true);
         this.#headerDom = tmpl.querySelector('.main-header');
         this.#headerAddBT = this.#headerDom.querySelector('.addTabBT');
+        this.#headerLogoutBT = this.#headerDom.querySelector('.logout');
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
@@ -51,5 +54,29 @@ class Header {
 
     getDom(){
         return this.#headerDom;
+    }
+
+    logoutResult(){
+        this.logoutRequest(function(result){
+            if(result === 'OK'){
+                console.log(result);
+                alert("로그아웃 되었습니다.");
+                location.href = "Login.html";
+            }else{
+                console.log(result);
+                alert("Error!");
+            }
+        });
+    }
+
+    logoutRequest(callback){
+        this.#headerLogoutBT.addEventListener('click', async ()=>{
+            const response = await fetch("http://localhost:8080/logout");
+            if(response.status === 200){
+                const result = await response.text();
+                callback(result);
+            }
+
+        })
     }
 }

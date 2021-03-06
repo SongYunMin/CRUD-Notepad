@@ -17,11 +17,21 @@
 .addTabBT{
     position: absolute;
     top: 50px;
+    right: 160px;
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+}
+
+.logout{
+    position: absolute;
+    top: 50px;
     right: 50px;
     font-size: 20px;
     width: 100px;
     height: 40px;
 }
+
 
 .tabList{
     display: flex;
