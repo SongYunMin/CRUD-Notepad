@@ -4,12 +4,11 @@ const express = require('express'),
 const fs = require('fs');
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false})); // TODO : urlencoded 는 여기서 사용 X
-app.use(express.static('client'));
+app.use(express.static('client'));      // 정적 파일 제공
 
 // Built -in express
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '/client/Login.html'));
 });
 
 // TODO : File 경로 직접 접근 예외처리 필요 ex) ../ 등
@@ -71,6 +70,23 @@ app.get('/load', (req, res) => {
         res.send(textData);
         return 1;
     });
+});
+
+app.post('/login', (req, res) =>{
+    const ID = ["1234", "thddbsals", "sms8377"];
+    const PW = ["1234", "4321", "8704"];
+    const NAME = ["Song", "Yun", "Min"];
+    const ID_INDEX = ID.indexOf(req.body.id);
+    const PW_INDEX = PW.indexOf(req.body.pw);
+    if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
+        res.send(NAME[ID_INDEX]);
+        return 1;
+    }else{
+        res.send('False');
+        return -1;
+    }
+    // // TODO : 리다이렉트 : 경로 재재정
+    // res.redirect('/test');
 });
 
 const server = app.listen(8080, () => {
