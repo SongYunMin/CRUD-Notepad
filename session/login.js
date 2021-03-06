@@ -18,9 +18,8 @@ class Login{
                pw : this.getPW()
            }
         });
-
-
     }
+
 
     getID(){
         console.log(this.#id.value);

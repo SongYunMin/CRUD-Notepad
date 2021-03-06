@@ -53,8 +53,11 @@ class Monitor {
     changeTitle() {
         document.addEventListener('custom-changeTitle', (e) => {
             const data = this.#tab.changeTabTitle(e.detail, this.#tabsArray);
+            this.#nav.saveEvent(data).then(r => {
+                console.log(r);
+            }); // TODO : 콜백 필요
             this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
-            this.#nav.saveEvent(data);
+
         });
     }
 

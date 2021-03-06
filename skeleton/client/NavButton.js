@@ -62,40 +62,26 @@ class NavButton {
         this.#loadBT.addEventListener('click', async (e) => {
             const index = e.target.parentNode.getAttribute('name');
             const search = prompt("불러올 메모의 제목을 입력하세요.");
-            try{
-                let response = await fetch(`http://localhost:8080/load?name=${search}`);
-                if(response.status === 200){
-                    let result = await response.json();
-                    console.log(result);
-                    callback(result, index, e.target);
-                }
-            }catch(err){
-                console.error(err);
+            const response = await fetch(`http://localhost:8080/load?name=${search}`);
+            if (response.status === 200) {
+                const result = await response.json();
+                callback(result, index, e.target);
+            } else {
+                alert("Title not Found");
             }
-
-            // await fetch(`http://localhost:8080/load?name=${search}`)
-            //     .then((response) => {
-            //         return response.json();
-            //     })
-            //     .then(data =>{
-            //         callback(data, index, e.target);
-            //     })
-            //     .catch(err => {
-            //         console.error(err);
-            //         alert("저장된 파일이 없습니다.");
-            //         return -1;
-            //     });
         });
     }
 
-    saveEvent(data) {
+    async saveEvent(data) {
         this.#saveData = data;
-        fetch("http://localhost:8080/save", {
+        const response = await fetch("http://localhost:8080/save", {
             method: "POST",
-            headers: {'Content-Type': 'application/json',},
+            headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(this.#saveData)
-        }).then((response) =>
-            console.log(response)
-        )
+        });
+        if(response.status === 200){
+            console.log(await response.text());
+            return response.body;
+        }
     }
 }

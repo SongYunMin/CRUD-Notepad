@@ -15,16 +15,21 @@ app.get('/', (req, res) => {
 // TODO : File 경로 직접 접근 예외처리 필요 ex) ../ 등
 // Save Function
 app.post('/save', (req, res) => {
+    if (req.body.title.indexOf('../') !== -1) {
+        console.log("Unable to access.");
+        res.send("Unable to access.");
+        return -1;
+    }
     try {
         fs.accessSync(`./data/${req.body.title}.txt`, fs.constants.F_OK);
         console.log("파일 읽기 성공");
-    }catch{
-        fs.writeFile(`./data/${req.body.title}.txt`, '', (err)=>{
-           if(err){
-               console.log("File creation failed : ", err);
-           } else{
-               console.log("Make Notepad File");
-           }
+    } catch {
+        fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
+            if (err) {
+                console.log("File creation failed : ", err);
+            } else {
+                console.log("Make Notepad File");
+            }
         });
     }
 
@@ -45,15 +50,19 @@ app.post('/save', (req, res) => {
     });
 });
 
-// TODO : Request Body 에 title 명 추가해야 함
 // Load Function
 app.get('/load', (req, res) => {
+    if (req.query.name.indexOf('../') !== -1) {
+        console.log("Unable to access.");
+        res.send("Unable to access.");
+        return -1;
+    }
     try {
         fs.accessSync(`./data/${req.query.name}.txt`, fs.constants.F_OK);
         console.log(`Read '${req.query.name}' File`);
-    }catch{
+    } catch {
         console.log("FILE_NOT_FOUND");
-        res.send(JSON.parse("FILE_NOT_FOUND"));
+        res.send(JSON.stringify("FILE_NOT_FOUND"));
         return -1;
     }
 
