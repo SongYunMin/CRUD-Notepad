@@ -10,6 +10,7 @@ class Monitor {
 
     constructor(monitorDom) {
         this.#monitorDom = monitorDom;
+        this.checkSessionResult();
         this.#tabsDom = this.#monitorDom.querySelector('.tab');
         this.#navsDom = this.#monitorDom.querySelector('.nav');
         this.#headerDom = new Header();
@@ -20,6 +21,29 @@ class Monitor {
         this.makeNav();
         this.changeTab();
         this.changeTitle();
+    }
+
+
+    checkSessionResult(){
+        this.checkSessionRequest(function(result){
+            if(result === 'OK'){
+                console.log("정상 접근");
+            }else{
+                alert("세션이 만료되었습니다.");
+                location.href = "Login.html";
+            }
+        });
+    }
+
+    checkSessionRequest(callback){
+        (async function() {
+            const response = fetch("http://localhost:8080/Notepad");
+            if(response.status === 200){
+                console.log("정상");
+                const result = await response.text();
+                callback(result);
+            }
+        })();
     }
 
     makeHeader(header) {
@@ -66,4 +90,5 @@ class Monitor {
             this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
     }
+
 }

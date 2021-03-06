@@ -125,9 +125,18 @@ app.get('/logout', (req, res)=>{
            }
        )
    }
-
-   return 1;
 });
+
+app.get('/Notepad',  (req, res)=>{
+    console.log("Monitor의 요청");
+    if(req.session.user){
+        console.log("세션 : 정상");
+        res.send("OK");
+    }else{
+        console.log("비정상 접근");
+        res.send("False");
+    }
+})
 
 const server = app.listen(8080, () => {
     console.log('Server started!');
