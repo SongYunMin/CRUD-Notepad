@@ -2,12 +2,21 @@ const express = require('express'),
     path = require('path'),
     app = express();
 const fs = require('fs');
+const session = require('express-session');
+const fileStore = require('session-file-store')(session);
 
 app.use(express.json());
 app.use(express.static('client'));      // 정적 파일 제공
+app.use(session({
+    secret: '@#@$MYSIGN#@$#$',
+    resave: false,
+    saveUninitialized: true,
+    store : new fileStore()
+}));
 
 // Built -in express
 app.get('/', (req, res) => {
+    console.log(req.session);
     res.sendFile(path.join(__dirname, '/client/Login.html'));
 });
 
@@ -79,6 +88,7 @@ app.post('/login', (req, res) =>{
     const ID_INDEX = ID.indexOf(req.body.id);
     const PW_INDEX = PW.indexOf(req.body.pw);
     if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
+        req.session.username = ID[ID_INDEX];
         res.send(NAME[ID_INDEX]);
         return 1;
     }else{
