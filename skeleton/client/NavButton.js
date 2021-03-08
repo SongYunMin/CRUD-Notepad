@@ -31,9 +31,16 @@ class NavButton {
 
     changeTitle() {
         this.#saveBT.addEventListener('click', (e) => {
+            const mouseTarget = {
+                x : e.clientX,
+                y : e.clientY
+            }
             e.target.dispatchEvent(new CustomEvent('custom-changeTitle', {
                 bubbles: true,
-                detail: e.target.parentNode.getAttribute('name')
+                detail: {
+                    index : e.target.parentNode.getAttribute('name'),
+                    mouse : mouseTarget
+                }
             }));
         });
     }
@@ -73,11 +80,14 @@ class NavButton {
     }
 
     async saveEvent(data) {
-        this.#saveData = data;
-        const response = await fetch("http://localhost:8080/save", {
+        const response = await fetch("http://localhost:8080/save-notepad", {
             method: "POST",
             headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify(this.#saveData)
+            // TODO : 오브젝트로 묶었는데 왜 그래...
+            body: JSON.stringify({
+                notepad : data.tab,
+                mouse : data.mouse
+            })
         });
         if(response.status === 200){
             console.log(await response.text());

@@ -7,15 +7,12 @@ const session = require('express-session');
 app.use(express.json());
 app.use(express.static('client'));      // 정적 파일 제공
 
-
 app.use(session({
     key:'sid',
     secret:'secret',
     resave: false,
     saveUninitialized: true,
-    cookie : {
-        maxAge: 600000          // 유효기간 10 분
-    }
+    cookie : {maxAge: 600000}
 }));
 
 // Built -in express
@@ -30,6 +27,7 @@ app.get('/', (req, res) => {
     }
 });
 
+// Login Function
 app.post('/login', (req, res) =>{
     const ID = ["1234", "thddbsals", "sms8377"];
     const PW = ["1234", "4321", "8704"];
@@ -54,6 +52,7 @@ app.post('/login', (req, res) =>{
     }
 });
 
+// Logout Function
 app.get('/logout', (req, res)=>{
     if(req.session.user){
         console.log("Logout...");
@@ -81,15 +80,19 @@ app.get('/Notepad',  (req, res)=>{
 })
 
 // Save Function
-app.post('/save', (req, res) => {
-    if (req.body.title.indexOf('../') !== -1) {
+app.post('/save-notepad', (req, res) => {
+    if (req.body.notepad.title.indexOf('../') !== -1) {
         res.send("Unable to access.");
         return -1;
     }
+    // TODO : 마우스 값 가지고 있음
+    console.log(req.body.mouse);
+    req.session.user.mouse = req.body.mouse;
+    console.log(req.session.user.id);
     try {
-        fs.accessSync(`./data/${req.body.title}.txt`, fs.constants.F_OK);
+        fs.accessSync(`./data/notepad/${req.body.notepad.title}.txt`, fs.constants.F_OK);
     } catch {
-        fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
+        fs.writeFile(`./data/notepad/${req.body.notepad.title}.txt`, '', (err) => {
             if (err) {
                 console.log("File creation failed : ", err);
             } else {
@@ -99,13 +102,13 @@ app.post('/save', (req, res) => {
     }
 
     const input = {
-        title: req.body.title,
-        memo: req.body.memo
+        title: req.body.notepad.title,
+        memo: req.body.notepad.memo
     }
 
-    fs.readFile(`./data/${req.body.title}.txt`, 'UTF-8', function (err, data) {
+    fs.readFile(`./data/notepad/${req.body.notepad.title}.txt`, 'UTF-8', function (err, data) {
         const json = JSON.stringify(input);
-        fs.writeFile(`./data/${req.body.title}.txt`, json, function (err) {
+        fs.writeFile(`./data/notepad/${req.body.notepad.title}.txt`, json, function (err) {
             if (err) {
                 console.log("File Write Error!");
             } else {
@@ -113,7 +116,19 @@ app.post('/save', (req, res) => {
             }
         });
     });
+    res.redirect("http://localhost:8080/save-user");
 });
+
+app.get('/save-user',(req, res)=>{
+    // Session Check
+    if(!req.session.user){
+        console.log("Session Not Found");
+        res.send("False");
+    }
+    console.log("테스트!");
+    console.log(req.session.user.id);
+    console.log(req.session.user.mouse);
+})
 
 // Load Function
 app.get('/load', (req, res) => {
@@ -137,8 +152,6 @@ app.get('/load', (req, res) => {
         return 1;
     });
 });
-
-
 
 const server = app.listen(8080, () => {
     console.log('Server started!');

@@ -3,13 +3,14 @@ class Tabs {
     #titleDom
     #memoDom
     #TAB_COUNT
+
     constructor(count) {
         this.#TAB_COUNT = count;
-       this.prepareDom();
-       this.setElementAttribute();
+        this.prepareDom();
+        this.setElementAttribute();
     }
 
-    prepareDom(){
+    prepareDom() {
         const t = document.querySelector('.template-tab');
         const tmpl = document.importNode(t.content, true);
         this.#tabsDom = tmpl.querySelector('.notepadTab');
@@ -17,18 +18,18 @@ class Tabs {
         this.#memoDom = this.#tabsDom.querySelector('.notepadMemo');
     }
 
-    getDom(){
+    getDom() {
         return this.#tabsDom;
     }
 
-    setElementAttribute(){
+    setElementAttribute() {
         this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
     }
 
-    changeNotepad(data, target, tabs){
+    changeNotepad(data, target, tabs) {
         const index = target.getAttribute('name');
-        for(let i=0;i<tabs.length;i++){
-            if(index === tabs[i].getAttribute('name')){
+        for (let i = 0; i < tabs.length; i++) {
+            if (index === tabs[i].getAttribute('name')) {
                 const title = tabs[i].querySelector('.notepadTitle');
                 const memo = tabs[i].querySelector('.notepadMemo');
                 title.value = `${data.title}`;
@@ -37,25 +38,25 @@ class Tabs {
         }
     }
 
-    changeTab(click, tabs, navs){
-        for(let i=0;i<tabs.length;i++){
-            if(click === tabs[i].getAttribute('name')){
+    changeTab(click, tabs, navs) {
+        for (let i = 0; i < tabs.length; i++) {
+            if (click === tabs[i].getAttribute('name')) {
                 tabs[i].style.visibility = 'visible';
-            }else{
+            } else {
                 tabs[i].style.visibility = 'hidden';
             }
         }
-        for(let i=0;i<navs.length;i++){
-            if(click === navs[i].getAttribute('name')){
+        for (let i = 0; i < navs.length; i++) {
+            if (click === navs[i].getAttribute('name')) {
                 navs[i].style.visibility = 'visible';
-            }else{
+            } else {
                 navs[i].style.visibility = 'hidden';
             }
         }
     }
 
-    changeTabTitle(click, tabs){
-        for(let i=0;i<tabs.length;i++) {
+    changeTabTitle(click, tabs) {
+        for (let i = 0; i < tabs.length; i++) {
             if (click === tabs[i].getAttribute('name')) {
                 return {
                     title: tabs[i].querySelector('.notepadTitle').value,
@@ -63,5 +64,9 @@ class Tabs {
                 };
             }
         }
+    }
+
+    getTabCount(){
+        return this.#TAB_COUNT;
     }
 }

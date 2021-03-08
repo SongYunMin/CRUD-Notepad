@@ -25,7 +25,6 @@ class Monitor {
 
     checkSessionResult(){
         this.checkSessionRequest(function(result){
-            console.log("Check 가능?");
             if(result === 'OK'){
                 console.log("정상 접근");
             }else{
@@ -52,7 +51,6 @@ class Monitor {
 
     makeTabs() {
         this.#monitorDom.addEventListener('custom-addTabs', (e) => {
-            // tabDom은 Dom 이 아니라 클래스
             this.#tab = new Tabs(e.detail);
             this.#tabsDom.appendChild(this.#tab.getDom());
             this.#tabsArray.push(this.#tab.getDom());
@@ -76,12 +74,17 @@ class Monitor {
 
     changeTitle() {
         document.addEventListener('custom-changeTitle', (e) => {
-            const data = this.#tab.changeTabTitle(e.detail, this.#tabsArray);
+            const data = {
+                tab : this.#tab.changeTabTitle(e.detail.index, this.#tabsArray),
+                mouse : e.detail.mouse,
+                count : this.#tab.getTabCount()
+            };
+
+            const tabCount = this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
+
             this.#nav.saveEvent(data).then(r => {
                 console.log(r);
-            }); // TODO : 콜백 필요
-            this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
-
+            });
         });
     }
 
@@ -90,5 +93,4 @@ class Monitor {
             this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
     }
-
 }
