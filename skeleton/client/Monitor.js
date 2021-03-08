@@ -77,10 +77,11 @@ class Monitor {
             const data = {
                 tab : this.#tab.changeTabTitle(e.detail.index, this.#tabsArray),
                 mouse : e.detail.mouse,
-                count : this.#tab.getTabCount()
+                count : this.#tab.getTabCount(),
+                activeIndex : this.#tab.getActiveIndex()
             };
-
-            const tabCount = this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
+            console.log(data.tab);
+            this.#headerDom.changeTitle(e.detail.index, data.tab);
 
             this.#nav.saveEvent(data).then(r => {
                 console.log(r);

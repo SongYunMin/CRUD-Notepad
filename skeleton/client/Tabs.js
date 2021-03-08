@@ -3,6 +3,7 @@ class Tabs {
     #titleDom
     #memoDom
     #TAB_COUNT
+    #activeIndex
 
     constructor(count) {
         this.#TAB_COUNT = count;
@@ -42,6 +43,7 @@ class Tabs {
         for (let i = 0; i < tabs.length; i++) {
             if (click === tabs[i].getAttribute('name')) {
                 tabs[i].style.visibility = 'visible';
+                this.#activeIndex = i;          // 0 Index
             } else {
                 tabs[i].style.visibility = 'hidden';
             }
@@ -68,5 +70,9 @@ class Tabs {
 
     getTabCount(){
         return this.#TAB_COUNT;
+    }
+
+    getActiveIndex(){
+        return this.#activeIndex
     }
 }

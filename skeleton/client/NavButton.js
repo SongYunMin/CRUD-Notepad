@@ -83,10 +83,10 @@ class NavButton {
         const response = await fetch("http://localhost:8080/save-notepad", {
             method: "POST",
             headers: {'Content-Type' : 'application/json'},
-            // TODO : 오브젝트로 묶었는데 왜 그래...
             body: JSON.stringify({
                 notepad : data.tab,
-                mouse : data.mouse
+                mouse : data.mouse,
+                activeIndex : data.activeIndex
             })
         });
         if(response.status === 200){

@@ -86,9 +86,9 @@ app.post('/save-notepad', (req, res) => {
         return -1;
     }
     // TODO : 마우스 값 가지고 있음
-    console.log(req.body.mouse);
     req.session.user.mouse = req.body.mouse;
-    console.log(req.session.user.id);
+    req.session.user.count = req.body.count;
+    req.session.user.activeIndex = req.body.activeIndex;
     try {
         fs.accessSync(`./data/notepad/${req.body.notepad.title}.txt`, fs.constants.F_OK);
     } catch {
@@ -117,7 +117,7 @@ app.post('/save-notepad', (req, res) => {
         });
     });
     res.redirect("http://localhost:8080/save-user");
-});
+})
 
 app.get('/save-user',(req, res)=>{
     // Session Check
@@ -125,9 +125,18 @@ app.get('/save-user',(req, res)=>{
         console.log("Session Not Found");
         res.send("False");
     }
-    console.log("테스트!");
     console.log(req.session.user.id);
     console.log(req.session.user.mouse);
+    console.log(req.session.user.activeIndex);
+    const data = {
+        id : req.session.user.id,
+        mouse : req.session.user.mouse,
+        activeIndex : req.session.user.activeIndex
+    }
+
+    fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
+    console.log("Create User Session Data");
+    res.end();
 })
 
 // Load Function
