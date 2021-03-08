@@ -3,15 +3,19 @@ const express = require('express'),
     app = express();
 const fs = require('fs');
 const session = require('express-session');
-const fileStore = require('session-file-store')(session);
 
 app.use(express.json());
 app.use(express.static('client'));      // 정적 파일 제공
+
+
 app.use(session({
-    secret: '@#@$MYSIGN#@$#$',
+    key:'sid',
+    secret:'secret',
     resave: false,
     saveUninitialized: true,
-    store : new fileStore()
+    cookie : {
+        maxAge: 600000          // 유효기간 10 분
+    }
 }));
 
 // Built -in express
@@ -26,17 +30,64 @@ app.get('/', (req, res) => {
     }
 });
 
-// TODO : File 경로 직접 접근 예외처리 필요 ex) ../ 등
+app.post('/login', (req, res) =>{
+    const ID = ["1234", "thddbsals", "sms8377"];
+    const PW = ["1234", "4321", "8704"];
+    const NAME = ["Song", "Yun", "Min"];
+    const ID_INDEX = ID.indexOf(req.body.id);
+    const PW_INDEX = PW.indexOf(req.body.pw);
+    if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
+        if(!req.session.user){
+            console.log("Session Not Found... Create Session.");
+            req.session.user = {
+                id:ID[ID_INDEX],
+                pw:PW[PW_INDEX],
+                name:NAME[ID_INDEX],
+                authorized : true
+            }
+        }
+        res.send(NAME[ID_INDEX]);
+        return 1;
+    }else{
+        res.send('False');
+        return -1;
+    }
+});
+
+app.get('/logout', (req, res)=>{
+    if(req.session.user){
+        console.log("Logout...");
+        req.session.destroy(err => {
+                if(err){
+                    console.log("Failed to delete session");
+                    return -1;
+                }
+                console.log("Session deletion successful");
+                res.send("OK");
+                return 1;
+            }
+        )
+    }
+});
+
+app.get('/Notepad',  (req, res)=>{
+    if(req.session.user){
+        console.log("Session...OK");
+        res.send("OK");
+    }else{
+        console.log("Session Not Found");
+        res.send("False");
+    }
+})
+
 // Save Function
 app.post('/save', (req, res) => {
     if (req.body.title.indexOf('../') !== -1) {
-        console.log("Unable to access.");
         res.send("Unable to access.");
         return -1;
     }
     try {
         fs.accessSync(`./data/${req.body.title}.txt`, fs.constants.F_OK);
-        console.log("파일 읽기 성공");
     } catch {
         fs.writeFile(`./data/${req.body.title}.txt`, '', (err) => {
             if (err) {
@@ -87,56 +138,7 @@ app.get('/load', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) =>{
-    const ID = ["1234", "thddbsals", "sms8377"];
-    const PW = ["1234", "4321", "8704"];
-    const NAME = ["Song", "Yun", "Min"];
-    const ID_INDEX = ID.indexOf(req.body.id);
-    const PW_INDEX = PW.indexOf(req.body.pw);
-    if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
-        if(!req.session.user){
-            console.log("세션 존재하지 않음");
-            req.session.user = {
-                id:ID[ID_INDEX],
-                pw:PW[PW_INDEX],
-                name:NAME[ID_INDEX],
-                authorized : true
-            }
-        }
-        res.send(NAME[ID_INDEX]);
-        return 1;
-    }else{
-        res.send('False');
-        return -1;
-    }
-});
 
-app.get('/logout', (req, res)=>{
-   if(req.session.user){
-       console.log("Logout...");
-       req.session.destroy(err => {
-               if(err){
-                   console.log("세션 삭제 실패");
-                   return -1;
-               }
-               console.log("세션 삭제");
-               res.send("OK");
-               return 1;
-           }
-       )
-   }
-});
-
-app.get('/Notepad',  (req, res)=>{
-    console.log("Monitor의 요청");
-    if(req.session.user){
-        console.log("세션 : 정상");
-        res.send("OK");
-    }else{
-        console.log("비정상 접근");
-        res.send("False");
-    }
-})
 
 const server = app.listen(8080, () => {
     console.log('Server started!');

@@ -23,13 +23,13 @@ class Monitor {
         this.changeTitle();
     }
 
-
     checkSessionResult(){
         this.checkSessionRequest(function(result){
+            console.log("Check 가능?");
             if(result === 'OK'){
                 console.log("정상 접근");
             }else{
-                alert("세션이 만료되었습니다.");
+                alert("비정상 접근입니다. 다시 로그인 해주세요.");
                 location.href = "Login.html";
             }
         });
@@ -37,7 +37,7 @@ class Monitor {
 
     checkSessionRequest(callback){
         (async function() {
-            const response = fetch("http://localhost:8080/Notepad");
+            const response = await fetch("http://localhost:8080/Notepad");
             if(response.status === 200){
                 console.log("정상");
                 const result = await response.text();
