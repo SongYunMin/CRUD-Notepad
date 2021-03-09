@@ -44,12 +44,22 @@ class Monitor {
                 return result;
             }
         })();
-        this.#initData = JSON.parse(await data);
-        this.initialize();
+        try{
+            this.#initData = JSON.parse(await data);
+            this.initialize();
+        }catch{
+            console.log("데아터 없음");
+        }
     }
 
     initialize(){
-        this.#headerDom.init(this.#initData.count);
+        this.#headerDom.init(this.#initData);
+        document.dispatchEvent(new CustomEvent('custom-changeTab', {
+            detail: String(this.#initData.activeIndex)
+        }));
+        this.#headerDom.changeTitle(String(this.#initData.activeIndex), this.#initData.notepad);
+        this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
+
     }
 
     makeHeader(header) {
@@ -99,9 +109,5 @@ class Monitor {
         this.#nav.getDom().addEventListener('custom-loadTab', (e) => {
             this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
-    }
-
-    printInitData(){
-        console.log(this.#initData);
     }
 }

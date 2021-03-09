@@ -27,6 +27,11 @@ class Tabs {
         this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
     }
 
+    initNotepad(data, index, tabs){
+        tabs[index-1].querySelector('.notepadTitle').value = `${data.title}`;
+        tabs[index-1].querySelector('.notepadMemo').value = `${data.memo}`;
+    }
+
     changeNotepad(data, target, tabs) {
         const index = target.getAttribute('name');
         for (let i = 0; i < tabs.length; i++) {
@@ -43,7 +48,7 @@ class Tabs {
         for (let i = 0; i < tabs.length; i++) {
             if (click === tabs[i].getAttribute('name')) {
                 tabs[i].style.visibility = 'visible';
-                this.#activeIndex = i;          // 0 Index
+                this.#activeIndex = i+1;          // 0 Index
             } else {
                 tabs[i].style.visibility = 'hidden';
             }

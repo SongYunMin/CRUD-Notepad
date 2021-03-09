@@ -42,10 +42,11 @@ class Header {
         });
     }
 
-    init(count){
-        for(let i=0;i<count;i++) {
+    init(initData){
+        for(let i=0;i<initData.count;i++) {
             this.#headerAddBT.dispatchEvent(new Event('click'));
         }
+
     }
 
 
