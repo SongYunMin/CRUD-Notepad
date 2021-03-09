@@ -42,6 +42,13 @@ class Header {
         });
     }
 
+    init(count){
+        for(let i=0;i<count;i++) {
+            this.#headerAddBT.dispatchEvent(new Event('click'));
+        }
+    }
+
+
     changeTitle(index, data){
         const tabList = this.#headerTabList.childNodes;
         for(let i=1;i<tabList.length;i++){

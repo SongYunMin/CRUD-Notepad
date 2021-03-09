@@ -3,6 +3,7 @@ class Login{
     #id
     #pw
     #login
+    #initData
     constructor(dom) {
         this.#dom = dom;
         this.#id = this.#dom.querySelector('.login-id');
@@ -46,6 +47,7 @@ class Login{
             if(response.status === 200){
                 const result = await response.text();
                 callback(result);
+
             }
         });
     }

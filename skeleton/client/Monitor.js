@@ -7,6 +7,7 @@ class Monitor {
     #nav
     #tabsArray
     #navsArray
+    #initData
 
     constructor(monitorDom) {
         this.#monitorDom = monitorDom;
@@ -23,26 +24,32 @@ class Monitor {
         this.changeTitle();
     }
 
-    checkSessionResult(){
-        this.checkSessionRequest(function(result){
-            if(result === 'OK'){
-                console.log("정상 접근");
-            }else{
+    checkSessionResult() {
+        this.#initData = this.checkSessionRequest(async function (result) {
+            if (result === 'False') {
                 alert("비정상 접근입니다. 다시 로그인 해주세요.");
                 location.href = "Login.html";
+            } else {
+                console.log("정상 접근");
             }
         });
     }
 
-    checkSessionRequest(callback){
-        (async function() {
+    async checkSessionRequest(callback){
+        const data = (async function() {
             const response = await fetch("http://localhost:8080/Notepad");
             if(response.status === 200){
-                console.log("정상");
                 const result = await response.text();
                 callback(result);
+                return result;
             }
         })();
+        this.#initData = JSON.parse(await data);
+        this.initialize();
+    }
+
+    initialize(){
+        this.#headerDom.init(this.#initData.count);
     }
 
     makeHeader(header) {
@@ -80,7 +87,6 @@ class Monitor {
                 count : this.#tab.getTabCount(),
                 activeIndex : this.#tab.getActiveIndex()
             };
-            console.log(data.tab);
             this.#headerDom.changeTitle(e.detail.index, data.tab);
 
             this.#nav.saveEvent(data).then(r => {
@@ -93,5 +99,9 @@ class Monitor {
         this.#nav.getDom().addEventListener('custom-loadTab', (e) => {
             this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
+    }
+
+    printInitData(){
+        console.log(this.#initData);
     }
 }

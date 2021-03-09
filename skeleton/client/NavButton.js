@@ -86,6 +86,7 @@ class NavButton {
             body: JSON.stringify({
                 notepad : data.tab,
                 mouse : data.mouse,
+                count : data.count,
                 activeIndex : data.activeIndex
             })
         });

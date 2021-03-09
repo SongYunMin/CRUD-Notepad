@@ -8,56 +8,56 @@ app.use(express.json());
 app.use(express.static('client'));      // 정적 파일 제공
 
 app.use(session({
-    key:'sid',
-    secret:'secret',
+    key: 'sid',
+    secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie : {maxAge: 600000}
+    cookie: {maxAge: 600000}
 }));
 
 // Built -in express
 app.get('/', (req, res) => {
     console.log(req.session);
-    if(req.session.user){
+    if (req.session.user) {
         console.log("로그인 되어있음");
         res.redirect('/Notepad.html');
-    }else{
+    } else {
         console.log("로그인 되어있지 않음");
         res.sendFile(path.join(__dirname, '/client/Login.html'));
     }
 });
 
 // Login Function
-app.post('/login', (req, res) =>{
+app.post('/login', (req, res) => {
     const ID = ["1234", "thddbsals", "sms8377"];
     const PW = ["1234", "4321", "8704"];
     const NAME = ["Song", "Yun", "Min"];
     const ID_INDEX = ID.indexOf(req.body.id);
     const PW_INDEX = PW.indexOf(req.body.pw);
-    if(ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1){
-        if(!req.session.user){
+    if (ID_INDEX === PW_INDEX && (ID_INDEX + PW_INDEX) > -1) {
+        if (!req.session.user) {
             console.log("Session Not Found... Create Session.");
             req.session.user = {
-                id:ID[ID_INDEX],
-                pw:PW[PW_INDEX],
-                name:NAME[ID_INDEX],
-                authorized : true
+                id: ID[ID_INDEX],
+                pw: PW[PW_INDEX],
+                name: NAME[ID_INDEX],
+                authorized: true
             }
         }
-        res.send(NAME[ID_INDEX]);
-        return 1;
-    }else{
+        console.log(req.session.user);
+        res.send(req.session.user.name);
+    } else {
         res.send('False');
         return -1;
     }
 });
 
 // Logout Function
-app.get('/logout', (req, res)=>{
-    if(req.session.user){
+app.get('/logout', (req, res) => {
+    if (req.session.user) {
         console.log("Logout...");
         req.session.destroy(err => {
-                if(err){
+                if (err) {
                     console.log("Failed to delete session");
                     return -1;
                 }
@@ -69,11 +69,18 @@ app.get('/logout', (req, res)=>{
     }
 });
 
-app.get('/Notepad',  (req, res)=>{
-    if(req.session.user){
+app.get('/Notepad', (req, res) => {
+    if (req.session.user) {
         console.log("Session...OK");
-        res.send("OK");
-    }else{
+        try {
+            const userData = fs.readFileSync(`./data/user/${req.session.user.id}.txt`, "UTF-8");
+            res.send(userData);
+            return 1;
+        } catch {
+            res.send("DATA_NOT_FOUND");
+            return -1;
+        }
+    } else {
         console.log("Session Not Found");
         res.send("False");
     }
@@ -85,10 +92,15 @@ app.post('/save-notepad', (req, res) => {
         res.send("Unable to access.");
         return -1;
     }
-    // TODO : 마우스 값 가지고 있음
+    const input = {
+        title: req.body.notepad.title,
+        memo: req.body.notepad.memo
+    }
+
     req.session.user.mouse = req.body.mouse;
     req.session.user.count = req.body.count;
     req.session.user.activeIndex = req.body.activeIndex;
+    req.session.user.notepad = input;           // 마지막 노트패드 값
     try {
         fs.accessSync(`./data/notepad/${req.body.notepad.title}.txt`, fs.constants.F_OK);
     } catch {
@@ -101,10 +113,6 @@ app.post('/save-notepad', (req, res) => {
         });
     }
 
-    const input = {
-        title: req.body.notepad.title,
-        memo: req.body.notepad.memo
-    }
 
     fs.readFile(`./data/notepad/${req.body.notepad.title}.txt`, 'UTF-8', function (err, data) {
         const json = JSON.stringify(input);
@@ -119,19 +127,19 @@ app.post('/save-notepad', (req, res) => {
     res.redirect("http://localhost:8080/save-user");
 })
 
-app.get('/save-user',(req, res)=>{
+app.get('/save-user', (req, res) => {
     // Session Check
-    if(!req.session.user){
+    if (!req.session.user) {
         console.log("Session Not Found");
         res.send("False");
     }
-    console.log(req.session.user.id);
-    console.log(req.session.user.mouse);
-    console.log(req.session.user.activeIndex);
+
     const data = {
-        id : req.session.user.id,
-        mouse : req.session.user.mouse,
-        activeIndex : req.session.user.activeIndex
+        id: req.session.user.id,                       // 유저의 이름
+        mouse: req.session.user.mouse,                 // 마우스 위치값
+        count: req.session.user.count,                 // 탭 생성 갯수
+        activeIndex: req.session.user.activeIndex,     // 마지막 수정 Index
+        notepad: req.session.user.notepad              // Notepad 내용
     }
 
     fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
