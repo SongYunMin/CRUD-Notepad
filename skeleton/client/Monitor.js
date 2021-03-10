@@ -46,6 +46,7 @@ class Monitor {
         })();
         try{
             this.#initData = JSON.parse(await data);
+            console.log(this.#initData);
             this.initialize();
         }catch{
             console.log("데아터 없음");
@@ -53,14 +54,18 @@ class Monitor {
     }
 
     initialize(){
+        console.log("초기화 들어옴");
         this.#headerDom.init(this.#initData);
         document.dispatchEvent(new CustomEvent('custom-changeTab', {
             detail: String(this.#initData.activeIndex)
         }));
+
+        // TODO : 모든 데이터 Set 되어야 함
         this.#headerDom.changeTitle(
             String(this.#initData.activeIndex),
-            this.#initData.notepad[this.#initData.notepad.length]
+            this.#initData.notepad[this.#initData.notepad.length-1]
         );
+
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
     }
 

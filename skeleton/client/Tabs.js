@@ -27,9 +27,15 @@ class Tabs {
         this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
     }
 
+    // TODO : 모든 Notepad Set
     initNotepad(data, index, tabs){
-        tabs[index-1].querySelector('.notepadTitle').value = `${data.title}`;
-        tabs[index-1].querySelector('.notepadMemo').value = `${data.memo}`;
+        console.log(data.length);
+        for(let i = 0;i < data.length; i++){
+            tabs[data[i].index-1].querySelector('.notepadTitle').value = `${data[i].title}`;
+            tabs[data[i].index-1].querySelector('.notepadMemo').value=`${data[i].memo}`;
+        }
+        // tabs[index-1].querySelector('.notepadTitle').value = `${data[index-1].title}`;
+        // tabs[index-1].querySelector('.notepadMemo').value = `${data[index-1].memo}`;
     }
 
     changeNotepad(data, target, tabs) {
