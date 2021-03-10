@@ -74,6 +74,7 @@ app.get('/Notepad', (req, res) => {
         console.log("Session...OK");
         try {
             const userData = fs.readFileSync(`./data/user/${req.session.user.id}.txt`, "UTF-8");
+            console.log(userData);
             res.send(userData);
             return 1;
         } catch {
@@ -141,9 +142,6 @@ app.get('/save-user', (req, res) => {
 
     try {
         const existingData = JSON.parse(fs.readFileSync(`./data/user/${req.session.user.id}.txt`, 'UTF-8'));
-        // TODO : 중복 메모 Index 제거하는 작업 필요함
-        console.log("데이터 : ", data);
-        // existingData.notepad.push(req.session.user.notepad);
         for(let i=0;i<existingData.notepad.length;i++){
             if(existingData.notepad[i].index === data.activeIndex){
                 existingData.notepad.splice(i,1);
@@ -154,17 +152,14 @@ app.get('/save-user', (req, res) => {
         console.log(data.notepad);
         fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
         res.send(data);
-
         return 1;
     } catch (err) {
         data.notepad.push(req.session.user.notepad);
         fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
         console.log("Create User Session Data");
         res.send(data);
-
         return -1;
     }
-    // TODO : session 에 대한 확인을 하기 때문에 파일 유무에 대한 예외처리는 필요없어 보임
 });
 
 // Load Function
@@ -174,15 +169,17 @@ app.get('/load', (req, res) => {
         res.send("Unable to access.");
         return -1;
     }
+    console.log("들어옴");
 
     try {
-        fs.accessSync(`./data/${req.query.name}.txt`, fs.constants.F_OK);
+        fs.accessSync(`./data/notepad/${req.query.name}.txt`, fs.constants.F_OK);
     } catch {
+        console.log("FILE_NOT_FOUND")
         res.send(JSON.stringify("FILE_NOT_FOUND"));
         return -1;
     }
 
-    fs.readFile(`./data/${req.query.name}.txt`, 'UTF-8', function (err, data) {
+    fs.readFile(`./data/notepad/${req.query.name}.txt`, 'UTF-8', function (err, data) {
         const textData = JSON.parse(data);
         res.send(textData);
         return 1;
