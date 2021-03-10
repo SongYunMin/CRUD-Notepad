@@ -43,22 +43,31 @@ class Header {
         });
     }
 
-    init(initData) {
+    initTabButton(initData) {
         for (let i = 0; i < initData.count; i++) {
             this.#headerAddBT.dispatchEvent(new Event('click'));
         }
     }
 
-
-    changeTitle(data) {
-        console.log("들어옴");
+    initTabTitle(data){
         const tabList = this.#headerTabList.childNodes;
-        console.log(data.length);
         for (let i = 0; i < data.length; i++) {
+            console.log(tabList[data[i].index].querySelector('.tabBT-bt'));
             tabList[data[i].index].querySelector('.tabBT-bt').innerHTML = `${data[i].title}`
             // const titleBT = tabList[i].querySelector('.tabBT-bt');
             console.log(data);
             // titleBT.innerHTML = `${data.title}`;
+        }
+    }
+
+
+    changeTitle(index, title){
+        const tabList = this.#headerTabList.childNodes;
+        for(let i=1;i<tabList.length;i++){
+            if(index === tabList[i].getAttribute('name')){
+                const titleBT = tabList[i].querySelector('.tabBT-bt');
+                titleBT.innerHTML = `${title.title}`;
+            }
         }
     }
 

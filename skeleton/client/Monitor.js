@@ -55,16 +55,16 @@ class Monitor {
     }
 
     initialize(){
-        this.#headerDom.init(this.#initData);
+        this.#headerDom.initTabButton(this.#initData);
         document.dispatchEvent(new CustomEvent('custom-changeTab', {
             detail: String(this.#initData.activeIndex)
         }));
 
-        // TODO : 모든 데이터 Set 되어야 함
-        this.#headerDom.changeTitle(
-            this.#initData.notepad
-        );
-
+        // // TODO : 모든 데이터 Set 되어야 함
+        // this.#headerDom.changeTitle(
+        //     this.#initData.notepad
+        // );
+        this.#headerDom.initTabTitle(this.#initData.notepad)
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
     }
 
