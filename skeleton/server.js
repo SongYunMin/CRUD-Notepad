@@ -86,20 +86,21 @@ app.get('/Notepad', (req, res) => {
     }
 })
 
+// TODO : 저장된 모든 Notepad 가 있어야 함
 // Save Function
 app.post('/save-notepad', (req, res) => {
     if (req.body.notepad.title.indexOf('../') !== -1) {
         res.send("Unable to access.");
         return -1;
     }
-    const input = {
-        title: req.body.notepad.title,
-        memo: req.body.notepad.memo
-    }
 
-    req.session.user.mouse = req.body.mouse;
     req.session.user.count = req.body.count;
     req.session.user.activeIndex = req.body.activeIndex;
+    const input = {
+        title: req.body.notepad.title,
+        memo: req.body.notepad.memo,
+        index: req.body.activeIndex
+    }
     req.session.user.notepad = input;           // 마지막 노트패드 값
 
     try {
@@ -114,14 +115,12 @@ app.post('/save-notepad', (req, res) => {
         });
     }
 
-
     try{
         fs.writeFileSync(`./data/notepad/${req.body.notepad.title}.txt`, JSON.stringify(input));
         console.log("File Write successful!");
     }catch{
         console.log("File Write Error!");
     }
-
     res.redirect("http://localhost:8080/save-user");
 })
 
@@ -130,20 +129,43 @@ app.get('/save-user', (req, res) => {
     if (!req.session.user) {
         console.log("Session Not Found");
         res.send("False");
+        return -1;
     }
 
     const data = {
         id: req.session.user.id,                       // 유저의 이름
-        mouse: req.session.user.mouse,                 // 마우스 위치값
         count: req.session.user.count,                 // 탭 생성 갯수
         activeIndex: req.session.user.activeIndex,     // 마지막 수정 Index
-        notepad: req.session.user.notepad              // Notepad 내용
+        notepad : []
     }
 
-    fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
-    console.log("Create User Session Data");
-    res.end();
-})
+    try {
+        const existingData = JSON.parse(fs.readFileSync(`./data/user/${req.session.user.id}.txt`, 'UTF-8'));
+        // TODO : 중복 메모 Index 제거하는 작업 필요함
+        console.log("데이터 : ", data);
+        // existingData.notepad.push(req.session.user.notepad);
+        for(let i=0;i<existingData.notepad.length;i++){
+            if(existingData.notepad[i].index === data.activeIndex){
+                existingData.notepad.splice(i,1);
+            }
+        }
+        existingData.notepad.push(req.session.user.notepad);
+        data.notepad = existingData.notepad;
+        console.log(data.notepad);
+        fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
+        res.send(data);
+
+        return 1;
+    } catch (err) {
+        data.notepad.push(req.session.user.notepad);
+        fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
+        console.log("Create User Session Data");
+        res.send(data);
+
+        return -1;
+    }
+    // TODO : session 에 대한 확인을 하기 때문에 파일 유무에 대한 예외처리는 필요없어 보임
+});
 
 // Load Function
 app.get('/load', (req, res) => {
@@ -152,6 +174,7 @@ app.get('/load', (req, res) => {
         res.send("Unable to access.");
         return -1;
     }
+
     try {
         fs.accessSync(`./data/${req.query.name}.txt`, fs.constants.F_OK);
     } catch {

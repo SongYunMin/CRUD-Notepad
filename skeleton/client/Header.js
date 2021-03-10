@@ -46,7 +46,6 @@ class Header {
         for(let i=0;i<initData.count;i++) {
             this.#headerAddBT.dispatchEvent(new Event('click'));
         }
-
     }
 
 
@@ -55,6 +54,7 @@ class Header {
         for(let i=1;i<tabList.length;i++){
             if(index === tabList[i].getAttribute('name')){
                 const titleBT = tabList[i].querySelector('.tabBT-bt');
+                console.log(data);
                 titleBT.innerHTML = `${data.title}`;
             }
         }

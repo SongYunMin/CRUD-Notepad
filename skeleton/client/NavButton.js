@@ -84,14 +84,13 @@ class NavButton {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({
                 notepad : data.tab,
-                mouse : data.mouse,
                 count : data.count,
                 activeIndex : data.activeIndex
             })
         });
         if(response.status === 200){
-            console.log(await response.text());
-            return response.body;
+            // console.log(await response.text());
+            return await response.json();
         }
     }
 }

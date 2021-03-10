@@ -57,7 +57,10 @@ class Monitor {
         document.dispatchEvent(new CustomEvent('custom-changeTab', {
             detail: String(this.#initData.activeIndex)
         }));
-        this.#headerDom.changeTitle(String(this.#initData.activeIndex), this.#initData.notepad);
+        this.#headerDom.changeTitle(
+            String(this.#initData.activeIndex),
+            this.#initData.notepad[this.#initData.notepad.length]
+        );
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
     }
 
@@ -92,10 +95,10 @@ class Monitor {
         document.addEventListener('custom-changeTitle', (e) => {
             const data = {
                 tab : this.#tab.changeTabTitle(e.detail.index, this.#tabsArray),
-                mouse : e.detail.mouse,
                 count : this.#tab.getTabCount(),
                 activeIndex : this.#tab.getActiveIndex()
             };
+            console.log(data);
             this.#headerDom.changeTitle(e.detail.index, data.tab);
             this.#nav.saveEvent(data).then(r => {
                 console.log(r);
