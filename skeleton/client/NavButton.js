@@ -89,7 +89,6 @@ class NavButton {
             })
         });
         if(response.status === 200){
-            // console.log(await response.text());
             return await response.json();
         }
     }

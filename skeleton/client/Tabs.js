@@ -29,13 +29,10 @@ class Tabs {
 
     // TODO : 모든 Notepad Set
     initNotepad(data, index, tabs){
-        console.log(data.length);
         for(let i = 0;i < data.length; i++){
             tabs[data[i].index-1].querySelector('.notepadTitle').value = `${data[i].title}`;
             tabs[data[i].index-1].querySelector('.notepadMemo').value=`${data[i].memo}`;
         }
-        // tabs[index-1].querySelector('.notepadTitle').value = `${data[index-1].title}`;
-        // tabs[index-1].querySelector('.notepadMemo').value = `${data[index-1].memo}`;
     }
 
     changeNotepad(data, target, tabs) {

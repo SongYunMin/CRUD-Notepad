@@ -52,11 +52,7 @@ class Header {
     initTabTitle(data){
         const tabList = this.#headerTabList.childNodes;
         for (let i = 0; i < data.length; i++) {
-            console.log(tabList[data[i].index].querySelector('.tabBT-bt'));
             tabList[data[i].index].querySelector('.tabBT-bt').innerHTML = `${data[i].title}`
-            // const titleBT = tabList[i].querySelector('.tabBT-bt');
-            console.log(data);
-            // titleBT.innerHTML = `${data.title}`;
         }
     }
 

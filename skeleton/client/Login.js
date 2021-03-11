@@ -13,12 +13,10 @@ class Login{
     }
 
     getID(){
-        console.log(this.#id.value);
         return this.#id.value;
     }
 
     getPW(){
-        console.log(this.#pw.value);
         return this.#pw.value;
     }
 

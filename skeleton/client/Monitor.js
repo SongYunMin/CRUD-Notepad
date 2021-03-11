@@ -46,10 +46,8 @@ class Monitor {
         })();
         try{
             this.#initData = JSON.parse(await data);
-            console.log(this.#initData);
             this.initialize();
         }catch{
-            console.log("데아터 없음");
             return 0;
         }
     }
@@ -60,10 +58,6 @@ class Monitor {
             detail: String(this.#initData.activeIndex)
         }));
 
-        // // TODO : 모든 데이터 Set 되어야 함
-        // this.#headerDom.changeTitle(
-        //     this.#initData.notepad
-        // );
         this.#headerDom.initTabTitle(this.#initData.notepad)
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
     }
@@ -102,7 +96,6 @@ class Monitor {
                 count : this.#tab.getTabCount(),
                 activeIndex : this.#tab.getActiveIndex()
             };
-            console.log(data);
             this.#headerDom.changeTitle(e.detail.index, data.tab);
             this.#nav.saveEvent(data).then(r => {
                 console.log(r);
